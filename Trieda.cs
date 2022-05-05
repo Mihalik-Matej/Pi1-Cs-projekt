@@ -12,16 +12,24 @@ namespace Pi1_Cs_projekt
         private string odbor;
         private string triednyUcitel;
         private int rocnik;
-        private List<Ziak> ziacivTriede;
+
 
         public Trieda()
         {
+        }
+
+        public Trieda(string meno, string odbor, string triednyUcitel, int rocnik)
+        {
+            this.Meno = meno;
+            this.Odbor = odbor;
+            this.TriednyUcitel = triednyUcitel;
+            this.Rocnik = rocnik;
         }
 
         public string Meno { get => meno; set => meno = value; }
         public string Odbor { get => odbor; set => odbor = value; }
         public string TriednyUcitel { get => triednyUcitel; set => triednyUcitel = value; }
         public int Rocnik { get => rocnik; set => rocnik = value; }
-        internal List<Ziak> ZiacivTriede { get => ziacivTriede; set => ziacivTriede = value; }
+
     }
 }
