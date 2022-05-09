@@ -46,10 +46,12 @@ namespace Pi1_Cs_projekt
             this.tabPageSkrUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprSkr = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitSkr = new System.Windows.Forms.GroupBox();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.groupBoxUpravitHrSkr = new System.Windows.Forms.GroupBox();
             this.tabPageSkrVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzSkr = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatSkr = new System.Windows.Forms.GroupBox();
+            this.treeViewSkrVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrSkr = new System.Windows.Forms.GroupBox();
             this.tabPageTriedy = new System.Windows.Forms.TabPage();
             this.tabControlTriedy = new System.Windows.Forms.TabControl();
@@ -69,10 +71,12 @@ namespace Pi1_Cs_projekt
             this.tabPageTrUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprTr = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitTr = new System.Windows.Forms.GroupBox();
+            this.treeView2 = new System.Windows.Forms.TreeView();
             this.groupBoxUptavitHrTr = new System.Windows.Forms.GroupBox();
             this.tabPageTrVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzTr = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatTr = new System.Windows.Forms.GroupBox();
+            this.treeViewTrdVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrTr = new System.Windows.Forms.GroupBox();
             this.tabPageZiaci = new System.Windows.Forms.TabPage();
             this.tabControlZiaci = new System.Windows.Forms.TabControl();
@@ -96,14 +100,19 @@ namespace Pi1_Cs_projekt
             this.tabPageZiakUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprZiak = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitZiak = new System.Windows.Forms.GroupBox();
+            this.treeView3 = new System.Windows.Forms.TreeView();
             this.groupBoxUpravitHrZiak = new System.Windows.Forms.GroupBox();
             this.tabPageZiakVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzZiak = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatZiak = new System.Windows.Forms.GroupBox();
+            this.treeViewZiakVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrZiak = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.buttonSkrVymz = new System.Windows.Forms.Button();
+            this.buttonTrdVymz = new System.Windows.Forms.Button();
+            this.buttonZiakVymz = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageSkrinky.SuspendLayout();
             this.tabControlSkrinky.SuspendLayout();
@@ -118,11 +127,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprSkr.Panel1.SuspendLayout();
             this.splitContainerUprSkr.Panel2.SuspendLayout();
             this.splitContainerUprSkr.SuspendLayout();
+            this.groupBoxUpravitSkr.SuspendLayout();
             this.tabPageSkrVymazat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzSkr)).BeginInit();
             this.splitContainerVmzSkr.Panel1.SuspendLayout();
             this.splitContainerVmzSkr.Panel2.SuspendLayout();
             this.splitContainerVmzSkr.SuspendLayout();
+            this.groupBoxVymazatSkr.SuspendLayout();
             this.tabPageTriedy.SuspendLayout();
             this.tabControlTriedy.SuspendLayout();
             this.tabPageTrVytvorit.SuspendLayout();
@@ -136,11 +147,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprTr.Panel1.SuspendLayout();
             this.splitContainerUprTr.Panel2.SuspendLayout();
             this.splitContainerUprTr.SuspendLayout();
+            this.groupBoxUpravitTr.SuspendLayout();
             this.tabPageTrVymazat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzTr)).BeginInit();
             this.splitContainerVmzTr.Panel1.SuspendLayout();
             this.splitContainerVmzTr.Panel2.SuspendLayout();
             this.splitContainerVmzTr.SuspendLayout();
+            this.groupBoxVymazatTr.SuspendLayout();
             this.tabPageZiaci.SuspendLayout();
             this.tabControlZiaci.SuspendLayout();
             this.tabPageZiakVytvorit.SuspendLayout();
@@ -154,11 +167,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprZiak.Panel1.SuspendLayout();
             this.splitContainerUprZiak.Panel2.SuspendLayout();
             this.splitContainerUprZiak.SuspendLayout();
+            this.groupBoxUpravitZiak.SuspendLayout();
             this.tabPageZiakVymazat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzZiak)).BeginInit();
             this.splitContainerVmzZiak.Panel1.SuspendLayout();
             this.splitContainerVmzZiak.Panel2.SuspendLayout();
             this.splitContainerVmzZiak.SuspendLayout();
+            this.groupBoxVymazatZiak.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -305,7 +320,7 @@ namespace Pi1_Cs_projekt
             // 
             this.groupBoxVytvoritHrSkr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrSkr.Name = "groupBoxVytvoritHrSkr";
-            this.groupBoxVytvoritHrSkr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVytvoritHrSkr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrSkr.TabIndex = 0;
             this.groupBoxVytvoritHrSkr.TabStop = false;
             this.groupBoxVytvoritHrSkr.Text = "Vytvorit Hromadne Skrinky";
@@ -340,6 +355,7 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitSkr
             // 
+            this.groupBoxUpravitSkr.Controls.Add(this.treeView1);
             this.groupBoxUpravitSkr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitSkr.Name = "groupBoxUpravitSkr";
             this.groupBoxUpravitSkr.Size = new System.Drawing.Size(235, 329);
@@ -347,11 +363,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitSkr.TabStop = false;
             this.groupBoxUpravitSkr.Text = "Upravit Skrinku";
             // 
+            // treeView1
+            // 
+            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView1.Location = new System.Drawing.Point(0, 30);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(235, 268);
+            this.treeView1.TabIndex = 6;
+            // 
             // groupBoxUpravitHrSkr
             // 
             this.groupBoxUpravitHrSkr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxUpravitHrSkr.Name = "groupBoxUpravitHrSkr";
-            this.groupBoxUpravitHrSkr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxUpravitHrSkr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxUpravitHrSkr.TabIndex = 0;
             this.groupBoxUpravitHrSkr.TabStop = false;
             this.groupBoxUpravitHrSkr.Text = "Upravit Hromadne Skrinky";
@@ -385,6 +409,8 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVymazatSkr
             // 
+            this.groupBoxVymazatSkr.Controls.Add(this.buttonSkrVymz);
+            this.groupBoxVymazatSkr.Controls.Add(this.treeViewSkrVymz);
             this.groupBoxVymazatSkr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxVymazatSkr.Name = "groupBoxVymazatSkr";
             this.groupBoxVymazatSkr.Size = new System.Drawing.Size(235, 329);
@@ -392,11 +418,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatSkr.TabStop = false;
             this.groupBoxVymazatSkr.Text = "Vyradit Skrinku";
             // 
+            // treeViewSkrVymz
+            // 
+            this.treeViewSkrVymz.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewSkrVymz.Location = new System.Drawing.Point(6, 30);
+            this.treeViewSkrVymz.Name = "treeViewSkrVymz";
+            this.treeViewSkrVymz.Size = new System.Drawing.Size(223, 260);
+            this.treeViewSkrVymz.TabIndex = 7;
+            // 
             // groupBoxVymazatHrSkr
             // 
             this.groupBoxVymazatHrSkr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVymazatHrSkr.Name = "groupBoxVymazatHrSkr";
-            this.groupBoxVymazatHrSkr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVymazatHrSkr.Size = new System.Drawing.Size(483, 328);
             this.groupBoxVymazatHrSkr.TabIndex = 0;
             this.groupBoxVymazatHrSkr.TabStop = false;
             this.groupBoxVymazatHrSkr.Text = "Vyradit Hromadne Skrinky";
@@ -547,7 +581,7 @@ namespace Pi1_Cs_projekt
             // 
             this.groupBoxVytvoritHrTr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrTr.Name = "groupBoxVytvoritHrTr";
-            this.groupBoxVytvoritHrTr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVytvoritHrTr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrTr.TabIndex = 0;
             this.groupBoxVytvoritHrTr.TabStop = false;
             this.groupBoxVytvoritHrTr.Text = "Vytvorit Hromadne Triedu";
@@ -582,6 +616,7 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitTr
             // 
+            this.groupBoxUpravitTr.Controls.Add(this.treeView2);
             this.groupBoxUpravitTr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitTr.Name = "groupBoxUpravitTr";
             this.groupBoxUpravitTr.Size = new System.Drawing.Size(235, 329);
@@ -589,11 +624,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitTr.TabStop = false;
             this.groupBoxUpravitTr.Text = "Upravit Triedu";
             // 
+            // treeView2
+            // 
+            this.treeView2.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView2.Location = new System.Drawing.Point(0, 30);
+            this.treeView2.Name = "treeView2";
+            this.treeView2.Size = new System.Drawing.Size(235, 268);
+            this.treeView2.TabIndex = 7;
+            // 
             // groupBoxUptavitHrTr
             // 
             this.groupBoxUptavitHrTr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxUptavitHrTr.Name = "groupBoxUptavitHrTr";
-            this.groupBoxUptavitHrTr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxUptavitHrTr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxUptavitHrTr.TabIndex = 0;
             this.groupBoxUptavitHrTr.TabStop = false;
             this.groupBoxUptavitHrTr.Text = "Uptavit Hromadne Triedu";
@@ -627,6 +670,8 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVymazatTr
             // 
+            this.groupBoxVymazatTr.Controls.Add(this.buttonTrdVymz);
+            this.groupBoxVymazatTr.Controls.Add(this.treeViewTrdVymz);
             this.groupBoxVymazatTr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxVymazatTr.Name = "groupBoxVymazatTr";
             this.groupBoxVymazatTr.Size = new System.Drawing.Size(235, 329);
@@ -634,11 +679,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatTr.TabStop = false;
             this.groupBoxVymazatTr.Text = "Vymazat Triedu";
             // 
+            // treeViewTrdVymz
+            // 
+            this.treeViewTrdVymz.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewTrdVymz.Location = new System.Drawing.Point(6, 30);
+            this.treeViewTrdVymz.Name = "treeViewTrdVymz";
+            this.treeViewTrdVymz.Size = new System.Drawing.Size(223, 260);
+            this.treeViewTrdVymz.TabIndex = 8;
+            // 
             // groupBoxVymazatHrTr
             // 
             this.groupBoxVymazatHrTr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVymazatHrTr.Name = "groupBoxVymazatHrTr";
-            this.groupBoxVymazatHrTr.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVymazatHrTr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVymazatHrTr.TabIndex = 0;
             this.groupBoxVymazatHrTr.TabStop = false;
             this.groupBoxVymazatHrTr.Text = "Vymazat Hromadne Triedu";
@@ -830,7 +883,7 @@ namespace Pi1_Cs_projekt
             // 
             this.groupBoxVytvoritHrZiak.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrZiak.Name = "groupBoxVytvoritHrZiak";
-            this.groupBoxVytvoritHrZiak.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVytvoritHrZiak.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrZiak.TabIndex = 0;
             this.groupBoxVytvoritHrZiak.TabStop = false;
             this.groupBoxVytvoritHrZiak.Text = "Vytvorit Hromadne Ziakov";
@@ -865,6 +918,7 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitZiak
             // 
+            this.groupBoxUpravitZiak.Controls.Add(this.treeView3);
             this.groupBoxUpravitZiak.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitZiak.Name = "groupBoxUpravitZiak";
             this.groupBoxUpravitZiak.Size = new System.Drawing.Size(235, 329);
@@ -872,11 +926,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitZiak.TabStop = false;
             this.groupBoxUpravitZiak.Text = "Upravit Ziaka";
             // 
+            // treeView3
+            // 
+            this.treeView3.BackColor = System.Drawing.SystemColors.Window;
+            this.treeView3.Location = new System.Drawing.Point(0, 30);
+            this.treeView3.Name = "treeView3";
+            this.treeView3.Size = new System.Drawing.Size(235, 268);
+            this.treeView3.TabIndex = 7;
+            // 
             // groupBoxUpravitHrZiak
             // 
             this.groupBoxUpravitHrZiak.Location = new System.Drawing.Point(0, 1);
             this.groupBoxUpravitHrZiak.Name = "groupBoxUpravitHrZiak";
-            this.groupBoxUpravitHrZiak.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxUpravitHrZiak.Size = new System.Drawing.Size(483, 329);
             this.groupBoxUpravitHrZiak.TabIndex = 0;
             this.groupBoxUpravitHrZiak.TabStop = false;
             this.groupBoxUpravitHrZiak.Text = "Upravit Hromadne Ziakov";
@@ -910,6 +972,8 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVymazatZiak
             // 
+            this.groupBoxVymazatZiak.Controls.Add(this.buttonZiakVymz);
+            this.groupBoxVymazatZiak.Controls.Add(this.treeViewZiakVymz);
             this.groupBoxVymazatZiak.Location = new System.Drawing.Point(5, 1);
             this.groupBoxVymazatZiak.Name = "groupBoxVymazatZiak";
             this.groupBoxVymazatZiak.Size = new System.Drawing.Size(235, 329);
@@ -917,11 +981,19 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatZiak.TabStop = false;
             this.groupBoxVymazatZiak.Text = "Vymazat Ziaka";
             // 
+            // treeViewZiakVymz
+            // 
+            this.treeViewZiakVymz.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewZiakVymz.Location = new System.Drawing.Point(6, 30);
+            this.treeViewZiakVymz.Name = "treeViewZiakVymz";
+            this.treeViewZiakVymz.Size = new System.Drawing.Size(223, 260);
+            this.treeViewZiakVymz.TabIndex = 8;
+            // 
             // groupBoxVymazatHrZiak
             // 
             this.groupBoxVymazatHrZiak.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVymazatHrZiak.Name = "groupBoxVymazatHrZiak";
-            this.groupBoxVymazatHrZiak.Size = new System.Drawing.Size(483, 332);
+            this.groupBoxVymazatHrZiak.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVymazatHrZiak.TabIndex = 0;
             this.groupBoxVymazatHrZiak.TabStop = false;
             this.groupBoxVymazatHrZiak.Text = "Vymazat Hromadne Ziakov";
@@ -953,6 +1025,36 @@ namespace Pi1_Cs_projekt
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
             // 
+            // buttonSkrVymz
+            // 
+            this.buttonSkrVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonSkrVymz.Name = "buttonSkrVymz";
+            this.buttonSkrVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonSkrVymz.TabIndex = 8;
+            this.buttonSkrVymz.Text = "Vyradit skrinku";
+            this.buttonSkrVymz.UseVisualStyleBackColor = true;
+            this.buttonSkrVymz.Click += new System.EventHandler(this.buttonSkrVymz_Click);
+            // 
+            // buttonTrdVymz
+            // 
+            this.buttonTrdVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonTrdVymz.Name = "buttonTrdVymz";
+            this.buttonTrdVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonTrdVymz.TabIndex = 9;
+            this.buttonTrdVymz.Text = "Vymazat triedy";
+            this.buttonTrdVymz.UseVisualStyleBackColor = true;
+            this.buttonTrdVymz.Click += new System.EventHandler(this.buttonTrdVymz_Click);
+            // 
+            // buttonZiakVymz
+            // 
+            this.buttonZiakVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonZiakVymz.Name = "buttonZiakVymz";
+            this.buttonZiakVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonZiakVymz.TabIndex = 9;
+            this.buttonZiakVymz.Text = "Vymazat ziaka";
+            this.buttonZiakVymz.UseVisualStyleBackColor = true;
+            this.buttonZiakVymz.Click += new System.EventHandler(this.buttonZiakVymz_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -983,11 +1085,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprSkr.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprSkr)).EndInit();
             this.splitContainerUprSkr.ResumeLayout(false);
+            this.groupBoxUpravitSkr.ResumeLayout(false);
             this.tabPageSkrVymazat.ResumeLayout(false);
             this.splitContainerVmzSkr.Panel1.ResumeLayout(false);
             this.splitContainerVmzSkr.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzSkr)).EndInit();
             this.splitContainerVmzSkr.ResumeLayout(false);
+            this.groupBoxVymazatSkr.ResumeLayout(false);
             this.tabPageTriedy.ResumeLayout(false);
             this.tabControlTriedy.ResumeLayout(false);
             this.tabPageTrVytvorit.ResumeLayout(false);
@@ -1002,11 +1106,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprTr.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprTr)).EndInit();
             this.splitContainerUprTr.ResumeLayout(false);
+            this.groupBoxUpravitTr.ResumeLayout(false);
             this.tabPageTrVymazat.ResumeLayout(false);
             this.splitContainerVmzTr.Panel1.ResumeLayout(false);
             this.splitContainerVmzTr.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzTr)).EndInit();
             this.splitContainerVmzTr.ResumeLayout(false);
+            this.groupBoxVymazatTr.ResumeLayout(false);
             this.tabPageZiaci.ResumeLayout(false);
             this.tabControlZiaci.ResumeLayout(false);
             this.tabPageZiakVytvorit.ResumeLayout(false);
@@ -1021,11 +1127,13 @@ namespace Pi1_Cs_projekt
             this.splitContainerUprZiak.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprZiak)).EndInit();
             this.splitContainerUprZiak.ResumeLayout(false);
+            this.groupBoxUpravitZiak.ResumeLayout(false);
             this.tabPageZiakVymazat.ResumeLayout(false);
             this.splitContainerVmzZiak.Panel1.ResumeLayout(false);
             this.splitContainerVmzZiak.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerVmzZiak)).EndInit();
             this.splitContainerVmzZiak.ResumeLayout(false);
+            this.groupBoxVymazatZiak.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1107,6 +1215,15 @@ namespace Pi1_Cs_projekt
         private System.Windows.Forms.ComboBox comboBoxVytvZiakTr;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonVytvTr;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.TreeView treeView3;
+        private System.Windows.Forms.TreeView treeViewSkrVymz;
+        private System.Windows.Forms.TreeView treeViewTrdVymz;
+        private System.Windows.Forms.TreeView treeViewZiakVymz;
+        private System.Windows.Forms.Button buttonSkrVymz;
+        private System.Windows.Forms.Button buttonTrdVymz;
+        private System.Windows.Forms.Button buttonZiakVymz;
     }
 }
 
