@@ -43,14 +43,27 @@ namespace Pi1_Cs_projekt
             this.textBoxVytvSkrCs = new System.Windows.Forms.TextBox();
             this.buttonVytvSkr = new System.Windows.Forms.Button();
             this.groupBoxVytvoritHrSkr = new System.Windows.Forms.GroupBox();
+            this.textBoxVytvSkrCsDo = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.buttonVytvSkrHrTr = new System.Windows.Forms.Button();
+            this.buttonVytvSkrHr = new System.Windows.Forms.Button();
+            this.comboBoxVytvSkrTrd = new System.Windows.Forms.ComboBox();
+            this.textBoxVytvSkrCsOd = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.richTextBoxVytvSkrPozHr = new System.Windows.Forms.RichTextBox();
             this.tabPageSkrUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprSkr = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitSkr = new System.Windows.Forms.GroupBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.buttonSkrUprPtvZm = new System.Windows.Forms.Button();
+            this.buttonSkrUprRsZm = new System.Windows.Forms.Button();
+            this.treeViewSkrUpr = new System.Windows.Forms.TreeView();
             this.groupBoxUpravitHrSkr = new System.Windows.Forms.GroupBox();
             this.tabPageSkrVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzSkr = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatSkr = new System.Windows.Forms.GroupBox();
+            this.buttonSkrVymz = new System.Windows.Forms.Button();
             this.treeViewSkrVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrSkr = new System.Windows.Forms.GroupBox();
             this.tabPageTriedy = new System.Windows.Forms.TabPage();
@@ -68,14 +81,35 @@ namespace Pi1_Cs_projekt
             this.textBoxVytvTrOd = new System.Windows.Forms.TextBox();
             this.textBoxVytvTrNz = new System.Windows.Forms.TextBox();
             this.groupBoxVytvoritHrTr = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBoxVytvTrOdbHrOdDo = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrPocHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrRcHrDo = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrRcHrOd = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.buttonVytvTrHr = new System.Windows.Forms.Button();
+            this.buttonVytvTrHrOdDo = new System.Windows.Forms.Button();
+            this.textBoxVytvTrTuHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrNzHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrOdHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvTrRcHr = new System.Windows.Forms.TextBox();
             this.tabPageTrUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprTr = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitTr = new System.Windows.Forms.GroupBox();
-            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.buttonTrdUprPtvZm = new System.Windows.Forms.Button();
+            this.buttonTrdUprRsZm = new System.Windows.Forms.Button();
+            this.treeViewTrdUpr = new System.Windows.Forms.TreeView();
             this.groupBoxUptavitHrTr = new System.Windows.Forms.GroupBox();
             this.tabPageTrVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzTr = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatTr = new System.Windows.Forms.GroupBox();
+            this.buttonTrdVymz = new System.Windows.Forms.Button();
             this.treeViewTrdVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrTr = new System.Windows.Forms.GroupBox();
             this.tabPageZiaci = new System.Windows.Forms.TabPage();
@@ -89,30 +123,48 @@ namespace Pi1_Cs_projekt
             this.label5 = new System.Windows.Forms.Label();
             this.dateTimePickerVytvZiakDN = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonVytvZiak = new System.Windows.Forms.Button();
-            this.textBoxVytvZiakVek = new System.Windows.Forms.TextBox();
             this.textBoxVytvZiakPC = new System.Windows.Forms.TextBox();
             this.textBoxVytvZiakMP = new System.Windows.Forms.TextBox();
             this.groupBoxVytvoritHrZiak = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.comboBoxVytvZiakTrOdDoHr = new System.Windows.Forms.ComboBox();
+            this.comboBoxVytvZiakPohHr = new System.Windows.Forms.ComboBox();
+            this.comboBoxVytvZiakTrHr = new System.Windows.Forms.ComboBox();
+            this.dateTimePickerVytvZiakDNHr = new System.Windows.Forms.DateTimePicker();
+            this.textBoxVytvZiakPCDoHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvZiakPCOdHr = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBoxVytvZiakPocHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvZiakPCHr = new System.Windows.Forms.TextBox();
+            this.textBoxVytvZiakMPHr = new System.Windows.Forms.TextBox();
+            this.buttonVytvZiakHrTr = new System.Windows.Forms.Button();
+            this.buttonVytvZiakHr = new System.Windows.Forms.Button();
             this.tabPageZiakUpravit = new System.Windows.Forms.TabPage();
             this.splitContainerUprZiak = new System.Windows.Forms.SplitContainer();
             this.groupBoxUpravitZiak = new System.Windows.Forms.GroupBox();
-            this.treeView3 = new System.Windows.Forms.TreeView();
+            this.buttonZiakUprPtvZm = new System.Windows.Forms.Button();
+            this.buttonZiakUprRsZm = new System.Windows.Forms.Button();
+            this.treeViewZiakUpr = new System.Windows.Forms.TreeView();
             this.groupBoxUpravitHrZiak = new System.Windows.Forms.GroupBox();
             this.tabPageZiakVymazat = new System.Windows.Forms.TabPage();
             this.splitContainerVmzZiak = new System.Windows.Forms.SplitContainer();
             this.groupBoxVymazatZiak = new System.Windows.Forms.GroupBox();
+            this.buttonZiakVymz = new System.Windows.Forms.Button();
             this.treeViewZiakVymz = new System.Windows.Forms.TreeView();
             this.groupBoxVymazatHrZiak = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.buttonSkrVymz = new System.Windows.Forms.Button();
-            this.buttonTrdVymz = new System.Windows.Forms.Button();
-            this.buttonZiakVymz = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageSkrinky.SuspendLayout();
             this.tabControlSkrinky.SuspendLayout();
@@ -122,6 +174,7 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvSkr.Panel2.SuspendLayout();
             this.splitContainerVytvSkr.SuspendLayout();
             this.groupBoxVytvoritSkr.SuspendLayout();
+            this.groupBoxVytvoritHrSkr.SuspendLayout();
             this.tabPageSkrUpravit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprSkr)).BeginInit();
             this.splitContainerUprSkr.Panel1.SuspendLayout();
@@ -142,6 +195,7 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvTr.Panel2.SuspendLayout();
             this.splitContainerVytvTr.SuspendLayout();
             this.groupBoxVytvoritTr.SuspendLayout();
+            this.groupBoxVytvoritHrTr.SuspendLayout();
             this.tabPageTrUpravit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprTr)).BeginInit();
             this.splitContainerUprTr.Panel1.SuspendLayout();
@@ -162,6 +216,7 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvZiak.Panel2.SuspendLayout();
             this.splitContainerVytvZiak.SuspendLayout();
             this.groupBoxVytvoritZiak.SuspendLayout();
+            this.groupBoxVytvoritHrZiak.SuspendLayout();
             this.tabPageZiakUpravit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerUprZiak)).BeginInit();
             this.splitContainerUprZiak.Panel1.SuspendLayout();
@@ -301,9 +356,9 @@ namespace Pi1_Cs_projekt
             // textBoxVytvSkrCs
             // 
             this.textBoxVytvSkrCs.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxVytvSkrCs.Location = new System.Drawing.Point(111, 39);
+            this.textBoxVytvSkrCs.Location = new System.Drawing.Point(73, 39);
             this.textBoxVytvSkrCs.Name = "textBoxVytvSkrCs";
-            this.textBoxVytvSkrCs.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvSkrCs.Size = new System.Drawing.Size(162, 20);
             this.textBoxVytvSkrCs.TabIndex = 1;
             // 
             // buttonVytvSkr
@@ -318,12 +373,111 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVytvoritHrSkr
             // 
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.textBoxVytvSkrCsDo);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.label35);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.label34);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.buttonVytvSkrHrTr);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.buttonVytvSkrHr);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.comboBoxVytvSkrTrd);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.textBoxVytvSkrCsOd);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.label33);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.label32);
+            this.groupBoxVytvoritHrSkr.Controls.Add(this.richTextBoxVytvSkrPozHr);
             this.groupBoxVytvoritHrSkr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrSkr.Name = "groupBoxVytvoritHrSkr";
             this.groupBoxVytvoritHrSkr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrSkr.TabIndex = 0;
             this.groupBoxVytvoritHrSkr.TabStop = false;
             this.groupBoxVytvoritHrSkr.Text = "Vytvorit Hromadne Skrinky";
+            // 
+            // textBoxVytvSkrCsDo
+            // 
+            this.textBoxVytvSkrCsDo.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxVytvSkrCsDo.Location = new System.Drawing.Point(70, 196);
+            this.textBoxVytvSkrCsDo.Name = "textBoxVytvSkrCsDo";
+            this.textBoxVytvSkrCsDo.Size = new System.Drawing.Size(162, 20);
+            this.textBoxVytvSkrCsDo.TabIndex = 31;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 199);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(47, 13);
+            this.label35.TabIndex = 30;
+            this.label35.Text = "Cislo do:";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(251, 173);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(40, 13);
+            this.label34.TabIndex = 29;
+            this.label34.Text = "Trieda:";
+            // 
+            // buttonVytvSkrHrTr
+            // 
+            this.buttonVytvSkrHrTr.Location = new System.Drawing.Point(254, 296);
+            this.buttonVytvSkrHrTr.Name = "buttonVytvSkrHrTr";
+            this.buttonVytvSkrHrTr.Size = new System.Drawing.Size(223, 27);
+            this.buttonVytvSkrHrTr.TabIndex = 8;
+            this.buttonVytvSkrHrTr.Text = "Vytvorit Skrinky pre ziakov triedy";
+            this.buttonVytvSkrHrTr.UseVisualStyleBackColor = true;
+            this.buttonVytvSkrHrTr.Click += new System.EventHandler(this.buttonVytvSkrHrTr_Click);
+            // 
+            // buttonVytvSkrHr
+            // 
+            this.buttonVytvSkrHr.Location = new System.Drawing.Point(9, 296);
+            this.buttonVytvSkrHr.Name = "buttonVytvSkrHr";
+            this.buttonVytvSkrHr.Size = new System.Drawing.Size(223, 27);
+            this.buttonVytvSkrHr.TabIndex = 9;
+            this.buttonVytvSkrHr.Text = "Vytvorit Skrinky";
+            this.buttonVytvSkrHr.UseVisualStyleBackColor = true;
+            this.buttonVytvSkrHr.Click += new System.EventHandler(this.buttonVytvSkrHr_Click);
+            // 
+            // comboBoxVytvSkrTrd
+            // 
+            this.comboBoxVytvSkrTrd.FormattingEnabled = true;
+            this.comboBoxVytvSkrTrd.Location = new System.Drawing.Point(353, 170);
+            this.comboBoxVytvSkrTrd.Name = "comboBoxVytvSkrTrd";
+            this.comboBoxVytvSkrTrd.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxVytvSkrTrd.TabIndex = 28;
+            // 
+            // textBoxVytvSkrCsOd
+            // 
+            this.textBoxVytvSkrCsOd.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxVytvSkrCsOd.Location = new System.Drawing.Point(70, 170);
+            this.textBoxVytvSkrCsOd.Name = "textBoxVytvSkrCsOd";
+            this.textBoxVytvSkrCsOd.Size = new System.Drawing.Size(162, 20);
+            this.textBoxVytvSkrCsOd.TabIndex = 8;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 173);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(47, 13);
+            this.label33.TabIndex = 8;
+            this.label33.Text = "Cislo od:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 71);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(60, 13);
+            this.label32.TabIndex = 8;
+            this.label32.Text = "Poznamka:";
+            // 
+            // richTextBoxVytvSkrPozHr
+            // 
+            this.richTextBoxVytvSkrPozHr.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBoxVytvSkrPozHr.Location = new System.Drawing.Point(70, 68);
+            this.richTextBoxVytvSkrPozHr.Name = "richTextBoxVytvSkrPozHr";
+            this.richTextBoxVytvSkrPozHr.Size = new System.Drawing.Size(162, 96);
+            this.richTextBoxVytvSkrPozHr.TabIndex = 8;
+            this.richTextBoxVytvSkrPozHr.Text = "";
             // 
             // tabPageSkrUpravit
             // 
@@ -355,7 +509,9 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitSkr
             // 
-            this.groupBoxUpravitSkr.Controls.Add(this.treeView1);
+            this.groupBoxUpravitSkr.Controls.Add(this.buttonSkrUprPtvZm);
+            this.groupBoxUpravitSkr.Controls.Add(this.buttonSkrUprRsZm);
+            this.groupBoxUpravitSkr.Controls.Add(this.treeViewSkrUpr);
             this.groupBoxUpravitSkr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitSkr.Name = "groupBoxUpravitSkr";
             this.groupBoxUpravitSkr.Size = new System.Drawing.Size(235, 329);
@@ -363,13 +519,35 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitSkr.TabStop = false;
             this.groupBoxUpravitSkr.Text = "Upravit Skrinku";
             // 
-            // treeView1
+            // buttonSkrUprPtvZm
             // 
-            this.treeView1.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView1.Location = new System.Drawing.Point(0, 30);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(235, 268);
-            this.treeView1.TabIndex = 6;
+            this.buttonSkrUprPtvZm.Location = new System.Drawing.Point(121, 296);
+            this.buttonSkrUprPtvZm.Name = "buttonSkrUprPtvZm";
+            this.buttonSkrUprPtvZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonSkrUprPtvZm.TabIndex = 10;
+            this.buttonSkrUprPtvZm.Text = "Potvrdit zmeny";
+            this.buttonSkrUprPtvZm.UseVisualStyleBackColor = true;
+            this.buttonSkrUprPtvZm.Click += new System.EventHandler(this.buttonSkrUprPtvZm_Click);
+            // 
+            // buttonSkrUprRsZm
+            // 
+            this.buttonSkrUprRsZm.Location = new System.Drawing.Point(6, 296);
+            this.buttonSkrUprRsZm.Name = "buttonSkrUprRsZm";
+            this.buttonSkrUprRsZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonSkrUprRsZm.TabIndex = 9;
+            this.buttonSkrUprRsZm.Text = "Resetovat zmeny";
+            this.buttonSkrUprRsZm.UseVisualStyleBackColor = true;
+            this.buttonSkrUprRsZm.Click += new System.EventHandler(this.buttonSkrUprRsZm_Click);
+            // 
+            // treeViewSkrUpr
+            // 
+            this.treeViewSkrUpr.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewSkrUpr.LabelEdit = true;
+            this.treeViewSkrUpr.Location = new System.Drawing.Point(6, 30);
+            this.treeViewSkrUpr.Name = "treeViewSkrUpr";
+            this.treeViewSkrUpr.Size = new System.Drawing.Size(223, 260);
+            this.treeViewSkrUpr.TabIndex = 6;
+            this.treeViewSkrUpr.DoubleClick += new System.EventHandler(this.treeViewSkrUpr_DoubleClick);
             // 
             // groupBoxUpravitHrSkr
             // 
@@ -417,6 +595,16 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatSkr.TabIndex = 0;
             this.groupBoxVymazatSkr.TabStop = false;
             this.groupBoxVymazatSkr.Text = "Vyradit Skrinku";
+            // 
+            // buttonSkrVymz
+            // 
+            this.buttonSkrVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonSkrVymz.Name = "buttonSkrVymz";
+            this.buttonSkrVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonSkrVymz.TabIndex = 8;
+            this.buttonSkrVymz.Text = "Vyradit skrinku";
+            this.buttonSkrVymz.UseVisualStyleBackColor = true;
+            this.buttonSkrVymz.Click += new System.EventHandler(this.buttonSkrVymz_Click);
             // 
             // treeViewSkrVymz
             // 
@@ -579,12 +767,178 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVytvoritHrTr
             // 
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label21);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label20);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label19);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label18);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrOdbHrOdDo);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrPocHr);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrRcHrDo);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrRcHrOd);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label17);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label16);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label15);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.label14);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.buttonVytvTrHr);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.buttonVytvTrHrOdDo);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrTuHr);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrNzHr);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrOdHr);
+            this.groupBoxVytvoritHrTr.Controls.Add(this.textBoxVytvTrRcHr);
             this.groupBoxVytvoritHrTr.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrTr.Name = "groupBoxVytvoritHrTr";
             this.groupBoxVytvoritHrTr.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrTr.TabIndex = 0;
             this.groupBoxVytvoritHrTr.TabStop = false;
-            this.groupBoxVytvoritHrTr.Text = "Vytvorit Hromadne Triedu";
+            this.groupBoxVytvoritHrTr.Text = "Vytvorit Hromadne Triedy";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(11, 146);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(38, 13);
+            this.label21.TabIndex = 25;
+            this.label21.Text = "Pocet:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(268, 94);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Odbor:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(268, 68);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 13);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "Rocnik do:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(268, 42);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(59, 13);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "Rocnik od:";
+            // 
+            // textBoxVytvTrOdbHrOdDo
+            // 
+            this.textBoxVytvTrOdbHrOdDo.Location = new System.Drawing.Point(343, 91);
+            this.textBoxVytvTrOdbHrOdDo.Name = "textBoxVytvTrOdbHrOdDo";
+            this.textBoxVytvTrOdbHrOdDo.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrOdbHrOdDo.TabIndex = 21;
+            // 
+            // textBoxVytvTrPocHr
+            // 
+            this.textBoxVytvTrPocHr.Location = new System.Drawing.Point(86, 143);
+            this.textBoxVytvTrPocHr.Name = "textBoxVytvTrPocHr";
+            this.textBoxVytvTrPocHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrPocHr.TabIndex = 20;
+            // 
+            // textBoxVytvTrRcHrDo
+            // 
+            this.textBoxVytvTrRcHrDo.Location = new System.Drawing.Point(343, 65);
+            this.textBoxVytvTrRcHrDo.Name = "textBoxVytvTrRcHrDo";
+            this.textBoxVytvTrRcHrDo.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrRcHrDo.TabIndex = 19;
+            // 
+            // textBoxVytvTrRcHrOd
+            // 
+            this.textBoxVytvTrRcHrOd.Location = new System.Drawing.Point(343, 39);
+            this.textBoxVytvTrRcHrOd.Name = "textBoxVytvTrRcHrOd";
+            this.textBoxVytvTrRcHrOd.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrRcHrOd.TabIndex = 18;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(11, 120);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 13);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "Triedny ucitel:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(11, 94);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Odbor:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 68);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Rocnik:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(11, 42);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 13);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Nazov:";
+            // 
+            // buttonVytvTrHr
+            // 
+            this.buttonVytvTrHr.Location = new System.Drawing.Point(14, 296);
+            this.buttonVytvTrHr.Name = "buttonVytvTrHr";
+            this.buttonVytvTrHr.Size = new System.Drawing.Size(196, 27);
+            this.buttonVytvTrHr.TabIndex = 17;
+            this.buttonVytvTrHr.Text = "Vytvorit triedy";
+            this.buttonVytvTrHr.UseVisualStyleBackColor = true;
+            this.buttonVytvTrHr.Click += new System.EventHandler(this.buttonVytvTrHr_Click);
+            // 
+            // buttonVytvTrHrOdDo
+            // 
+            this.buttonVytvTrHrOdDo.Location = new System.Drawing.Point(271, 296);
+            this.buttonVytvTrHrOdDo.Name = "buttonVytvTrHrOdDo";
+            this.buttonVytvTrHrOdDo.Size = new System.Drawing.Size(196, 27);
+            this.buttonVytvTrHrOdDo.TabIndex = 16;
+            this.buttonVytvTrHrOdDo.Text = "Vytvorit triedy";
+            this.buttonVytvTrHrOdDo.UseVisualStyleBackColor = true;
+            this.buttonVytvTrHrOdDo.Click += new System.EventHandler(this.buttonVytvTrHrOdDo_Click);
+            // 
+            // textBoxVytvTrTuHr
+            // 
+            this.textBoxVytvTrTuHr.Location = new System.Drawing.Point(86, 117);
+            this.textBoxVytvTrTuHr.Name = "textBoxVytvTrTuHr";
+            this.textBoxVytvTrTuHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrTuHr.TabIndex = 14;
+            // 
+            // textBoxVytvTrNzHr
+            // 
+            this.textBoxVytvTrNzHr.Location = new System.Drawing.Point(86, 39);
+            this.textBoxVytvTrNzHr.Name = "textBoxVytvTrNzHr";
+            this.textBoxVytvTrNzHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrNzHr.TabIndex = 15;
+            // 
+            // textBoxVytvTrOdHr
+            // 
+            this.textBoxVytvTrOdHr.Location = new System.Drawing.Point(86, 91);
+            this.textBoxVytvTrOdHr.Name = "textBoxVytvTrOdHr";
+            this.textBoxVytvTrOdHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrOdHr.TabIndex = 13;
+            // 
+            // textBoxVytvTrRcHr
+            // 
+            this.textBoxVytvTrRcHr.Location = new System.Drawing.Point(86, 65);
+            this.textBoxVytvTrRcHr.Name = "textBoxVytvTrRcHr";
+            this.textBoxVytvTrRcHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvTrRcHr.TabIndex = 12;
             // 
             // tabPageTrUpravit
             // 
@@ -616,7 +970,9 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitTr
             // 
-            this.groupBoxUpravitTr.Controls.Add(this.treeView2);
+            this.groupBoxUpravitTr.Controls.Add(this.buttonTrdUprPtvZm);
+            this.groupBoxUpravitTr.Controls.Add(this.buttonTrdUprRsZm);
+            this.groupBoxUpravitTr.Controls.Add(this.treeViewTrdUpr);
             this.groupBoxUpravitTr.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitTr.Name = "groupBoxUpravitTr";
             this.groupBoxUpravitTr.Size = new System.Drawing.Size(235, 329);
@@ -624,13 +980,35 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitTr.TabStop = false;
             this.groupBoxUpravitTr.Text = "Upravit Triedu";
             // 
-            // treeView2
+            // buttonTrdUprPtvZm
             // 
-            this.treeView2.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView2.Location = new System.Drawing.Point(0, 30);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.Size = new System.Drawing.Size(235, 268);
-            this.treeView2.TabIndex = 7;
+            this.buttonTrdUprPtvZm.Location = new System.Drawing.Point(121, 296);
+            this.buttonTrdUprPtvZm.Name = "buttonTrdUprPtvZm";
+            this.buttonTrdUprPtvZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonTrdUprPtvZm.TabIndex = 10;
+            this.buttonTrdUprPtvZm.Text = "Potvrdit zmeny";
+            this.buttonTrdUprPtvZm.UseVisualStyleBackColor = true;
+            this.buttonTrdUprPtvZm.Click += new System.EventHandler(this.buttonTrdUprPtvZm_Click);
+            // 
+            // buttonTrdUprRsZm
+            // 
+            this.buttonTrdUprRsZm.Location = new System.Drawing.Point(6, 296);
+            this.buttonTrdUprRsZm.Name = "buttonTrdUprRsZm";
+            this.buttonTrdUprRsZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonTrdUprRsZm.TabIndex = 9;
+            this.buttonTrdUprRsZm.Text = "Resetovat zmeny";
+            this.buttonTrdUprRsZm.UseVisualStyleBackColor = true;
+            this.buttonTrdUprRsZm.Click += new System.EventHandler(this.buttonTrdUprRsZm_Click);
+            // 
+            // treeViewTrdUpr
+            // 
+            this.treeViewTrdUpr.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewTrdUpr.LabelEdit = true;
+            this.treeViewTrdUpr.Location = new System.Drawing.Point(6, 30);
+            this.treeViewTrdUpr.Name = "treeViewTrdUpr";
+            this.treeViewTrdUpr.Size = new System.Drawing.Size(223, 260);
+            this.treeViewTrdUpr.TabIndex = 7;
+            this.treeViewTrdUpr.DoubleClick += new System.EventHandler(this.treeViewTrdUpr_DoubleClick);
             // 
             // groupBoxUptavitHrTr
             // 
@@ -678,6 +1056,16 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatTr.TabIndex = 0;
             this.groupBoxVymazatTr.TabStop = false;
             this.groupBoxVymazatTr.Text = "Vymazat Triedu";
+            // 
+            // buttonTrdVymz
+            // 
+            this.buttonTrdVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonTrdVymz.Name = "buttonTrdVymz";
+            this.buttonTrdVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonTrdVymz.TabIndex = 9;
+            this.buttonTrdVymz.Text = "Vymazat triedy";
+            this.buttonTrdVymz.UseVisualStyleBackColor = true;
+            this.buttonTrdVymz.Click += new System.EventHandler(this.buttonTrdVymz_Click);
             // 
             // treeViewTrdVymz
             // 
@@ -753,11 +1141,9 @@ namespace Pi1_Cs_projekt
             this.groupBoxVytvoritZiak.Controls.Add(this.label5);
             this.groupBoxVytvoritZiak.Controls.Add(this.dateTimePickerVytvZiakDN);
             this.groupBoxVytvoritZiak.Controls.Add(this.label4);
-            this.groupBoxVytvoritZiak.Controls.Add(this.label3);
             this.groupBoxVytvoritZiak.Controls.Add(this.label2);
             this.groupBoxVytvoritZiak.Controls.Add(this.label1);
             this.groupBoxVytvoritZiak.Controls.Add(this.buttonVytvZiak);
-            this.groupBoxVytvoritZiak.Controls.Add(this.textBoxVytvZiakVek);
             this.groupBoxVytvoritZiak.Controls.Add(this.textBoxVytvZiakPC);
             this.groupBoxVytvoritZiak.Controls.Add(this.textBoxVytvZiakMP);
             this.groupBoxVytvoritZiak.Location = new System.Drawing.Point(5, 1);
@@ -770,7 +1156,7 @@ namespace Pi1_Cs_projekt
             // comboBoxVytvZiakTr
             // 
             this.comboBoxVytvZiakTr.FormattingEnabled = true;
-            this.comboBoxVytvZiakTr.Location = new System.Drawing.Point(110, 171);
+            this.comboBoxVytvZiakTr.Location = new System.Drawing.Point(111, 144);
             this.comboBoxVytvZiakTr.Name = "comboBoxVytvZiakTr";
             this.comboBoxVytvZiakTr.Size = new System.Drawing.Size(124, 21);
             this.comboBoxVytvZiakTr.TabIndex = 13;
@@ -778,7 +1164,7 @@ namespace Pi1_Cs_projekt
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 174);
+            this.label11.Location = new System.Drawing.Point(8, 147);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(40, 13);
             this.label11.TabIndex = 12;
@@ -790,7 +1176,7 @@ namespace Pi1_Cs_projekt
             this.comboBoxVytvZiakPoh.Items.AddRange(new object[] {
             "Muz",
             "Zena"});
-            this.comboBoxVytvZiakPoh.Location = new System.Drawing.Point(111, 145);
+            this.comboBoxVytvZiakPoh.Location = new System.Drawing.Point(111, 117);
             this.comboBoxVytvZiakPoh.Name = "comboBoxVytvZiakPoh";
             this.comboBoxVytvZiakPoh.Size = new System.Drawing.Size(124, 21);
             this.comboBoxVytvZiakPoh.TabIndex = 11;
@@ -798,7 +1184,7 @@ namespace Pi1_Cs_projekt
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 122);
+            this.label5.Location = new System.Drawing.Point(8, 94);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 13);
             this.label5.TabIndex = 10;
@@ -807,7 +1193,7 @@ namespace Pi1_Cs_projekt
             // dateTimePickerVytvZiakDN
             // 
             this.dateTimePickerVytvZiakDN.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerVytvZiakDN.Location = new System.Drawing.Point(110, 118);
+            this.dateTimePickerVytvZiakDN.Location = new System.Drawing.Point(111, 91);
             this.dateTimePickerVytvZiakDN.Name = "dateTimePickerVytvZiakDN";
             this.dateTimePickerVytvZiakDN.Size = new System.Drawing.Size(124, 20);
             this.dateTimePickerVytvZiakDN.TabIndex = 9;
@@ -815,20 +1201,11 @@ namespace Pi1_Cs_projekt
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 148);
+            this.label4.Location = new System.Drawing.Point(8, 120);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "Pohlavie:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 94);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Vek:";
             // 
             // label2
             // 
@@ -858,13 +1235,6 @@ namespace Pi1_Cs_projekt
             this.buttonVytvZiak.UseVisualStyleBackColor = true;
             this.buttonVytvZiak.Click += new System.EventHandler(this.buttonVytvZiak_Click);
             // 
-            // textBoxVytvZiakVek
-            // 
-            this.textBoxVytvZiakVek.Location = new System.Drawing.Point(110, 91);
-            this.textBoxVytvZiakVek.Name = "textBoxVytvZiakVek";
-            this.textBoxVytvZiakVek.Size = new System.Drawing.Size(125, 20);
-            this.textBoxVytvZiakVek.TabIndex = 2;
-            // 
             // textBoxVytvZiakPC
             // 
             this.textBoxVytvZiakPC.Location = new System.Drawing.Point(111, 65);
@@ -881,12 +1251,203 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxVytvoritHrZiak
             // 
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label31);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label30);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label29);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.comboBoxVytvZiakTrOdDoHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.comboBoxVytvZiakPohHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.comboBoxVytvZiakTrHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.dateTimePickerVytvZiakDNHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.textBoxVytvZiakPCDoHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.textBoxVytvZiakPCOdHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label28);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label27);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label26);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label25);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label23);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.label22);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.textBoxVytvZiakPocHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.textBoxVytvZiakPCHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.textBoxVytvZiakMPHr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.buttonVytvZiakHrTr);
+            this.groupBoxVytvoritHrZiak.Controls.Add(this.buttonVytvZiakHr);
             this.groupBoxVytvoritHrZiak.Location = new System.Drawing.Point(0, 1);
             this.groupBoxVytvoritHrZiak.Name = "groupBoxVytvoritHrZiak";
             this.groupBoxVytvoritHrZiak.Size = new System.Drawing.Size(483, 329);
             this.groupBoxVytvoritHrZiak.TabIndex = 0;
             this.groupBoxVytvoritHrZiak.TabStop = false;
             this.groupBoxVytvoritHrZiak.Text = "Vytvorit Hromadne Ziakov";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(244, 94);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(95, 13);
+            this.label31.TabIndex = 32;
+            this.label31.Text = "Poradove cislo do:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(244, 68);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(95, 13);
+            this.label30.TabIndex = 31;
+            this.label30.Text = "Poradove cislo od:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(244, 147);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(40, 13);
+            this.label29.TabIndex = 30;
+            this.label29.Text = "Trieda:";
+            // 
+            // comboBoxVytvZiakTrOdDoHr
+            // 
+            this.comboBoxVytvZiakTrOdDoHr.FormattingEnabled = true;
+            this.comboBoxVytvZiakTrOdDoHr.Location = new System.Drawing.Point(345, 144);
+            this.comboBoxVytvZiakTrOdDoHr.Name = "comboBoxVytvZiakTrOdDoHr";
+            this.comboBoxVytvZiakTrOdDoHr.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxVytvZiakTrOdDoHr.TabIndex = 29;
+            // 
+            // comboBoxVytvZiakPohHr
+            // 
+            this.comboBoxVytvZiakPohHr.FormattingEnabled = true;
+            this.comboBoxVytvZiakPohHr.Items.AddRange(new object[] {
+            "Muz",
+            "Zena"});
+            this.comboBoxVytvZiakPohHr.Location = new System.Drawing.Point(113, 117);
+            this.comboBoxVytvZiakPohHr.Name = "comboBoxVytvZiakPohHr";
+            this.comboBoxVytvZiakPohHr.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxVytvZiakPohHr.TabIndex = 28;
+            // 
+            // comboBoxVytvZiakTrHr
+            // 
+            this.comboBoxVytvZiakTrHr.FormattingEnabled = true;
+            this.comboBoxVytvZiakTrHr.Location = new System.Drawing.Point(113, 144);
+            this.comboBoxVytvZiakTrHr.Name = "comboBoxVytvZiakTrHr";
+            this.comboBoxVytvZiakTrHr.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxVytvZiakTrHr.TabIndex = 27;
+            // 
+            // dateTimePickerVytvZiakDNHr
+            // 
+            this.dateTimePickerVytvZiakDNHr.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerVytvZiakDNHr.Location = new System.Drawing.Point(113, 91);
+            this.dateTimePickerVytvZiakDNHr.Name = "dateTimePickerVytvZiakDNHr";
+            this.dateTimePickerVytvZiakDNHr.Size = new System.Drawing.Size(124, 20);
+            this.dateTimePickerVytvZiakDNHr.TabIndex = 26;
+            // 
+            // textBoxVytvZiakPCDoHr
+            // 
+            this.textBoxVytvZiakPCDoHr.Location = new System.Drawing.Point(345, 91);
+            this.textBoxVytvZiakPCDoHr.Name = "textBoxVytvZiakPCDoHr";
+            this.textBoxVytvZiakPCDoHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvZiakPCDoHr.TabIndex = 25;
+            // 
+            // textBoxVytvZiakPCOdHr
+            // 
+            this.textBoxVytvZiakPCOdHr.Location = new System.Drawing.Point(345, 65);
+            this.textBoxVytvZiakPCOdHr.Name = "textBoxVytvZiakPCOdHr";
+            this.textBoxVytvZiakPCOdHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvZiakPCOdHr.TabIndex = 24;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(11, 174);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(38, 13);
+            this.label28.TabIndex = 22;
+            this.label28.Text = "Pocet:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(11, 147);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(40, 13);
+            this.label27.TabIndex = 14;
+            this.label27.Text = "Trieda:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(11, 120);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(51, 13);
+            this.label26.TabIndex = 14;
+            this.label26.Text = "Pohlavie:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(11, 94);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(91, 13);
+            this.label25.TabIndex = 14;
+            this.label25.Text = "Datum narodenia:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(11, 68);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 13);
+            this.label23.TabIndex = 14;
+            this.label23.Text = "Poradove cislo:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(11, 42);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(96, 13);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Meno a priezvisko:";
+            // 
+            // textBoxVytvZiakPocHr
+            // 
+            this.textBoxVytvZiakPocHr.Location = new System.Drawing.Point(113, 171);
+            this.textBoxVytvZiakPocHr.Name = "textBoxVytvZiakPocHr";
+            this.textBoxVytvZiakPocHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvZiakPocHr.TabIndex = 20;
+            // 
+            // textBoxVytvZiakPCHr
+            // 
+            this.textBoxVytvZiakPCHr.Location = new System.Drawing.Point(113, 65);
+            this.textBoxVytvZiakPCHr.Name = "textBoxVytvZiakPCHr";
+            this.textBoxVytvZiakPCHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvZiakPCHr.TabIndex = 16;
+            // 
+            // textBoxVytvZiakMPHr
+            // 
+            this.textBoxVytvZiakMPHr.Location = new System.Drawing.Point(113, 39);
+            this.textBoxVytvZiakMPHr.Name = "textBoxVytvZiakMPHr";
+            this.textBoxVytvZiakMPHr.Size = new System.Drawing.Size(124, 20);
+            this.textBoxVytvZiakMPHr.TabIndex = 14;
+            // 
+            // buttonVytvZiakHrTr
+            // 
+            this.buttonVytvZiakHrTr.Location = new System.Drawing.Point(247, 296);
+            this.buttonVytvZiakHrTr.Name = "buttonVytvZiakHrTr";
+            this.buttonVytvZiakHrTr.Size = new System.Drawing.Size(222, 27);
+            this.buttonVytvZiakHrTr.TabIndex = 14;
+            this.buttonVytvZiakHrTr.Text = "Vytvorit ziakov";
+            this.buttonVytvZiakHrTr.UseVisualStyleBackColor = true;
+            this.buttonVytvZiakHrTr.Click += new System.EventHandler(this.buttonVytvZiakHrTr_Click);
+            // 
+            // buttonVytvZiakHr
+            // 
+            this.buttonVytvZiakHr.Location = new System.Drawing.Point(14, 296);
+            this.buttonVytvZiakHr.Name = "buttonVytvZiakHr";
+            this.buttonVytvZiakHr.Size = new System.Drawing.Size(223, 27);
+            this.buttonVytvZiakHr.TabIndex = 15;
+            this.buttonVytvZiakHr.Text = "Vytvorit ziakov";
+            this.buttonVytvZiakHr.UseVisualStyleBackColor = true;
+            this.buttonVytvZiakHr.Click += new System.EventHandler(this.buttonVytvZiakHr_Click);
             // 
             // tabPageZiakUpravit
             // 
@@ -918,7 +1479,9 @@ namespace Pi1_Cs_projekt
             // 
             // groupBoxUpravitZiak
             // 
-            this.groupBoxUpravitZiak.Controls.Add(this.treeView3);
+            this.groupBoxUpravitZiak.Controls.Add(this.buttonZiakUprPtvZm);
+            this.groupBoxUpravitZiak.Controls.Add(this.buttonZiakUprRsZm);
+            this.groupBoxUpravitZiak.Controls.Add(this.treeViewZiakUpr);
             this.groupBoxUpravitZiak.Location = new System.Drawing.Point(5, 1);
             this.groupBoxUpravitZiak.Name = "groupBoxUpravitZiak";
             this.groupBoxUpravitZiak.Size = new System.Drawing.Size(235, 329);
@@ -926,13 +1489,35 @@ namespace Pi1_Cs_projekt
             this.groupBoxUpravitZiak.TabStop = false;
             this.groupBoxUpravitZiak.Text = "Upravit Ziaka";
             // 
-            // treeView3
+            // buttonZiakUprPtvZm
             // 
-            this.treeView3.BackColor = System.Drawing.SystemColors.Window;
-            this.treeView3.Location = new System.Drawing.Point(0, 30);
-            this.treeView3.Name = "treeView3";
-            this.treeView3.Size = new System.Drawing.Size(235, 268);
-            this.treeView3.TabIndex = 7;
+            this.buttonZiakUprPtvZm.Location = new System.Drawing.Point(121, 296);
+            this.buttonZiakUprPtvZm.Name = "buttonZiakUprPtvZm";
+            this.buttonZiakUprPtvZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonZiakUprPtvZm.TabIndex = 9;
+            this.buttonZiakUprPtvZm.Text = "Potvrdit zmeny";
+            this.buttonZiakUprPtvZm.UseVisualStyleBackColor = true;
+            this.buttonZiakUprPtvZm.Click += new System.EventHandler(this.buttonZiakUprPtvZm_Click);
+            // 
+            // buttonZiakUprRsZm
+            // 
+            this.buttonZiakUprRsZm.Location = new System.Drawing.Point(6, 296);
+            this.buttonZiakUprRsZm.Name = "buttonZiakUprRsZm";
+            this.buttonZiakUprRsZm.Size = new System.Drawing.Size(108, 27);
+            this.buttonZiakUprRsZm.TabIndex = 8;
+            this.buttonZiakUprRsZm.Text = "Resetovat zmeny";
+            this.buttonZiakUprRsZm.UseVisualStyleBackColor = true;
+            this.buttonZiakUprRsZm.Click += new System.EventHandler(this.buttonZiakUprRsZm_Click);
+            // 
+            // treeViewZiakUpr
+            // 
+            this.treeViewZiakUpr.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewZiakUpr.LabelEdit = true;
+            this.treeViewZiakUpr.Location = new System.Drawing.Point(6, 30);
+            this.treeViewZiakUpr.Name = "treeViewZiakUpr";
+            this.treeViewZiakUpr.Size = new System.Drawing.Size(223, 260);
+            this.treeViewZiakUpr.TabIndex = 7;
+            this.treeViewZiakUpr.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeViewZiakUpr_MouseDoubleClick);
             // 
             // groupBoxUpravitHrZiak
             // 
@@ -981,6 +1566,16 @@ namespace Pi1_Cs_projekt
             this.groupBoxVymazatZiak.TabStop = false;
             this.groupBoxVymazatZiak.Text = "Vymazat Ziaka";
             // 
+            // buttonZiakVymz
+            // 
+            this.buttonZiakVymz.Location = new System.Drawing.Point(6, 296);
+            this.buttonZiakVymz.Name = "buttonZiakVymz";
+            this.buttonZiakVymz.Size = new System.Drawing.Size(223, 27);
+            this.buttonZiakVymz.TabIndex = 9;
+            this.buttonZiakVymz.Text = "Vymazat ziaka";
+            this.buttonZiakVymz.UseVisualStyleBackColor = true;
+            this.buttonZiakVymz.Click += new System.EventHandler(this.buttonZiakVymz_Click);
+            // 
             // treeViewZiakVymz
             // 
             this.treeViewZiakVymz.BackColor = System.Drawing.SystemColors.Window;
@@ -1025,36 +1620,6 @@ namespace Pi1_Cs_projekt
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // buttonSkrVymz
-            // 
-            this.buttonSkrVymz.Location = new System.Drawing.Point(6, 296);
-            this.buttonSkrVymz.Name = "buttonSkrVymz";
-            this.buttonSkrVymz.Size = new System.Drawing.Size(223, 27);
-            this.buttonSkrVymz.TabIndex = 8;
-            this.buttonSkrVymz.Text = "Vyradit skrinku";
-            this.buttonSkrVymz.UseVisualStyleBackColor = true;
-            this.buttonSkrVymz.Click += new System.EventHandler(this.buttonSkrVymz_Click);
-            // 
-            // buttonTrdVymz
-            // 
-            this.buttonTrdVymz.Location = new System.Drawing.Point(6, 296);
-            this.buttonTrdVymz.Name = "buttonTrdVymz";
-            this.buttonTrdVymz.Size = new System.Drawing.Size(223, 27);
-            this.buttonTrdVymz.TabIndex = 9;
-            this.buttonTrdVymz.Text = "Vymazat triedy";
-            this.buttonTrdVymz.UseVisualStyleBackColor = true;
-            this.buttonTrdVymz.Click += new System.EventHandler(this.buttonTrdVymz_Click);
-            // 
-            // buttonZiakVymz
-            // 
-            this.buttonZiakVymz.Location = new System.Drawing.Point(6, 296);
-            this.buttonZiakVymz.Name = "buttonZiakVymz";
-            this.buttonZiakVymz.Size = new System.Drawing.Size(223, 27);
-            this.buttonZiakVymz.TabIndex = 9;
-            this.buttonZiakVymz.Text = "Vymazat ziaka";
-            this.buttonZiakVymz.UseVisualStyleBackColor = true;
-            this.buttonZiakVymz.Click += new System.EventHandler(this.buttonZiakVymz_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1080,6 +1645,8 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvSkr.ResumeLayout(false);
             this.groupBoxVytvoritSkr.ResumeLayout(false);
             this.groupBoxVytvoritSkr.PerformLayout();
+            this.groupBoxVytvoritHrSkr.ResumeLayout(false);
+            this.groupBoxVytvoritHrSkr.PerformLayout();
             this.tabPageSkrUpravit.ResumeLayout(false);
             this.splitContainerUprSkr.Panel1.ResumeLayout(false);
             this.splitContainerUprSkr.Panel2.ResumeLayout(false);
@@ -1101,6 +1668,8 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvTr.ResumeLayout(false);
             this.groupBoxVytvoritTr.ResumeLayout(false);
             this.groupBoxVytvoritTr.PerformLayout();
+            this.groupBoxVytvoritHrTr.ResumeLayout(false);
+            this.groupBoxVytvoritHrTr.PerformLayout();
             this.tabPageTrUpravit.ResumeLayout(false);
             this.splitContainerUprTr.Panel1.ResumeLayout(false);
             this.splitContainerUprTr.Panel2.ResumeLayout(false);
@@ -1122,6 +1691,8 @@ namespace Pi1_Cs_projekt
             this.splitContainerVytvZiak.ResumeLayout(false);
             this.groupBoxVytvoritZiak.ResumeLayout(false);
             this.groupBoxVytvoritZiak.PerformLayout();
+            this.groupBoxVytvoritHrZiak.ResumeLayout(false);
+            this.groupBoxVytvoritHrZiak.PerformLayout();
             this.tabPageZiakUpravit.ResumeLayout(false);
             this.splitContainerUprZiak.Panel1.ResumeLayout(false);
             this.splitContainerUprZiak.Panel2.ResumeLayout(false);
@@ -1187,12 +1758,10 @@ namespace Pi1_Cs_projekt
         private System.Windows.Forms.GroupBox groupBoxVymazatHrZiak;
         private System.Windows.Forms.GroupBox groupBoxUpravitZiak;
         private System.Windows.Forms.Button buttonVytvSkr;
-        private System.Windows.Forms.TextBox textBoxVytvZiakVek;
         private System.Windows.Forms.TextBox textBoxVytvZiakPC;
         private System.Windows.Forms.TextBox textBoxVytvZiakMP;
         private System.Windows.Forms.Button buttonVytvZiak;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
@@ -1215,15 +1784,69 @@ namespace Pi1_Cs_projekt
         private System.Windows.Forms.ComboBox comboBoxVytvZiakTr;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonVytvTr;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.TreeView treeView2;
-        private System.Windows.Forms.TreeView treeView3;
+        private System.Windows.Forms.TreeView treeViewSkrUpr;
+        private System.Windows.Forms.TreeView treeViewTrdUpr;
+        private System.Windows.Forms.TreeView treeViewZiakUpr;
         private System.Windows.Forms.TreeView treeViewSkrVymz;
         private System.Windows.Forms.TreeView treeViewTrdVymz;
         private System.Windows.Forms.TreeView treeViewZiakVymz;
         private System.Windows.Forms.Button buttonSkrVymz;
         private System.Windows.Forms.Button buttonTrdVymz;
         private System.Windows.Forms.Button buttonZiakVymz;
+        private System.Windows.Forms.Button buttonSkrUprPtvZm;
+        private System.Windows.Forms.Button buttonSkrUprRsZm;
+        private System.Windows.Forms.Button buttonTrdUprPtvZm;
+        private System.Windows.Forms.Button buttonTrdUprRsZm;
+        private System.Windows.Forms.Button buttonZiakUprPtvZm;
+        private System.Windows.Forms.Button buttonZiakUprRsZm;
+        private System.Windows.Forms.Button buttonVytvTrHr;
+        private System.Windows.Forms.Button buttonVytvTrHrOdDo;
+        private System.Windows.Forms.TextBox textBoxVytvTrTuHr;
+        private System.Windows.Forms.TextBox textBoxVytvTrNzHr;
+        private System.Windows.Forms.TextBox textBoxVytvTrOdHr;
+        private System.Windows.Forms.TextBox textBoxVytvTrRcHr;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button buttonVytvSkrHrTr;
+        private System.Windows.Forms.Button buttonVytvSkrHr;
+        private System.Windows.Forms.ComboBox comboBoxVytvSkrTrd;
+        private System.Windows.Forms.TextBox textBoxVytvSkrCsOd;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.RichTextBox richTextBoxVytvSkrPozHr;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBoxVytvTrOdbHrOdDo;
+        private System.Windows.Forms.TextBox textBoxVytvTrPocHr;
+        private System.Windows.Forms.TextBox textBoxVytvTrRcHrDo;
+        private System.Windows.Forms.TextBox textBoxVytvTrRcHrOd;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.ComboBox comboBoxVytvZiakTrOdDoHr;
+        private System.Windows.Forms.ComboBox comboBoxVytvZiakPohHr;
+        private System.Windows.Forms.ComboBox comboBoxVytvZiakTrHr;
+        private System.Windows.Forms.DateTimePicker dateTimePickerVytvZiakDNHr;
+        private System.Windows.Forms.TextBox textBoxVytvZiakPCDoHr;
+        private System.Windows.Forms.TextBox textBoxVytvZiakPCOdHr;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBoxVytvZiakPocHr;
+        private System.Windows.Forms.TextBox textBoxVytvZiakPCHr;
+        private System.Windows.Forms.TextBox textBoxVytvZiakMPHr;
+        private System.Windows.Forms.Button buttonVytvZiakHrTr;
+        private System.Windows.Forms.Button buttonVytvZiakHr;
+        private System.Windows.Forms.TextBox textBoxVytvSkrCsDo;
+        private System.Windows.Forms.Label label35;
     }
 }
 
