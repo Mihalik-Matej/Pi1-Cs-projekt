@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,26 +8,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
 
-namespace Pi1_Cs_projekt
-{
+namespace Pi1_Cs_projekt 
+{   
     public partial class Form1 : Form
     {
         List<Ziak> ziaci = new List<Ziak>();
         List<Trieda> triedy = new List<Trieda>();
         List<Skrinka> skrinky = new List<Skrinka>();
         List<int> rocniky_pridane = new List<int>();
-
+       
+        public readonly string _pathTriedy = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\TriedyUlozenie.JSON";
+        public readonly string _pathZiak = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\ZiakUlozenie.JSON";
+        public readonly string _pathSkrinky = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\SkrinkaUlozenie.JSON";
+        public readonly string _pathRocnik = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\RocnikUlozenie.JSON";
+      
         private void Res_treeviewtrdupr()
         {
             treeViewTrdUpr.Nodes.Clear();
-            foreach(int i in rocniky_pridane)
+            foreach (int i in rocniky_pridane)
             {
                 treeViewTrdUpr.Nodes.Add(i.ToString());
                 int index = 0;
                 foreach (Trieda j in triedy)
                 {
-                    if(j.Rocnik == i)
+                    if (j.Rocnik == i)
                     {
                         treeViewTrdUpr.Nodes[rocniky_pridane.IndexOf(j.Rocnik)].Nodes.Add(j.Meno);
                         treeViewTrdUpr.Nodes[rocniky_pridane.IndexOf(j.Rocnik)].Nodes[index].Tag = j;
@@ -36,10 +43,10 @@ namespace Pi1_Cs_projekt
                         treeViewTrdUpr.Nodes[rocniky_pridane.IndexOf(j.Rocnik)].Nodes[index].Nodes.Add(j.TriednyUcitel);
                         index++;
                     }
-                    
+
                 }
             }
-           
+
         }
 
         private void Res_treeviewtrdvymz()
@@ -67,14 +74,14 @@ namespace Pi1_Cs_projekt
         {
             treeViewZiakVymz.Nodes.Clear();
             int indexNT = 0;
-            foreach(Trieda i in triedy)
+            foreach (Trieda i in triedy)
             {
                 treeViewZiakVymz.Nodes.Add(i.Meno);
                 treeViewZiakVymz.Nodes[indexNT].Tag = i;
                 int indexNZ = 0;
-                foreach(Ziak j in ziaci)
+                foreach (Ziak j in ziaci)
                 {
-                    if(j.Trieda == i)
+                    if (j.Trieda == i)
                     {
                         treeViewZiakVymz.Nodes[indexNT].Nodes.Add(j.MenoPriezvisko);
                         treeViewZiakVymz.Nodes[indexNT].Nodes[indexNZ].Tag = j;
@@ -148,7 +155,7 @@ namespace Pi1_Cs_projekt
                 treeViewSkrVymz.Nodes[indexNS].Tag = i;
                 indexNS++;
             }
-           
+
 
         }
         private void Res_treeviewskrupr()
@@ -169,7 +176,7 @@ namespace Pi1_Cs_projekt
 
         }
 
-        private void  Combobox_res(ComboBox combobox)
+        private void Combobox_res(ComboBox combobox)
         {
             combobox.Items.Clear();
             foreach (Trieda i in triedy)
@@ -177,14 +184,49 @@ namespace Pi1_Cs_projekt
                 combobox.Items.Add(i.Meno);
             }
         }
-            
 
-    public Form1()
+
+        public Form1()
         {
             InitializeComponent();
+
             triedy.Add(new Trieda("Nezaradený", "žiaden", "nikto", 0));
-            ziaci.Add(new Ziak("Nikto", 0, "žiadne", new DateTime(1),triedy[0]));
+            ziaci.Add(new Ziak("Nikto", 0, "žiadne", new DateTime(1), triedy[0]));
             rocniky_pridane.Add(0);
+
+            string jsonString2zob = File.ReadAllText(_pathTriedy);
+            triedy = JsonSerializer.Deserialize<List<Trieda>>(jsonString2zob);
+
+            string jsonString3zob = File.ReadAllText(_pathSkrinky);
+            skrinky = JsonSerializer.Deserialize<List<Skrinka>>(jsonString3zob);
+
+            string jsonString4zob = File.ReadAllText(_pathZiak);
+            ziaci = JsonSerializer.Deserialize<List<Ziak>>(jsonString4zob);
+
+            foreach (Trieda i in triedy)
+            {
+                if (!rocniky_pridane.Contains(i.Rocnik))
+                {
+                    rocniky_pridane.Add(i.Rocnik);
+                }
+            }
+
+            //string jsonString5zob = File.ReadAllText(_pathRocnik);
+            //rocniky_pridane = JsonSerializer.Deserialize<List<int>>(jsonString5zob);
+
+            /*string jsonString2zob = File.ReadAllText(_pathTriedy);
+            triedy = JsonSerializer.Deserialize<List<Trieda>>(jsonString2zob);
+
+            string jsonString3zob = File.ReadAllText(_pathSkrinky);
+            skrinky = JsonSerializer.Deserialize<List<Skrinka>>(jsonString3zob);
+
+            string jsonString4zob = File.ReadAllText(_pathZiak);
+            ziaci = JsonSerializer.Deserialize<List<Ziak>>(jsonString4zob);*/
+
+            //string jsonString5 = File.ReadAllLines(_pathRocnik);
+            //rocniky_pridane = JsonSerializer.Deserialize(jsonString5);
+
+
 
             Res_treeviewtrdupr();
             Res_treeviewtrdvymz();
@@ -233,6 +275,7 @@ namespace Pi1_Cs_projekt
             comboBoxVytvZiakTrHr.Items.Add(triedy.Last().Meno);
             comboBoxVytvZiakTrOdDoHr.Items.Add(triedy.Last().Meno);
             comboBoxVytvSkrTrd.Items.Add(triedy.Last().Meno);
+                       
 
             /* treeViewVytvSkrVl.Nodes.Add(triedy.Last().Meno);
              treeViewVytvSkrVl.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();*/
@@ -248,10 +291,10 @@ namespace Pi1_Cs_projekt
                 }
                 index++;
             }
-            if(x)
+            if (x)
             {
-               /* treeViewTrdUpr.Nodes.Add(textBoxVytvTrRc.Text);
-                treeViewTrdVymz.Nodes.Add(textBoxVytvTrRc.Text);*/
+                /* treeViewTrdUpr.Nodes.Add(textBoxVytvTrRc.Text);
+                 treeViewTrdVymz.Nodes.Add(textBoxVytvTrRc.Text);*/
                 rocniky_pridane.Add(int.Parse(textBoxVytvTrRc.Text));
             }
             /*treeViewTrdUpr.Nodes[index].Nodes.Add(triedy.Last().Meno);
@@ -264,15 +307,15 @@ namespace Pi1_Cs_projekt
             Res_treeviewtrdupr();
             Res_treeviewtrdvymz();
 
-           /* treeViewTrdVymz.Nodes[index].Nodes.Add(triedy.Last().Meno);
-            treeViewTrdVymz.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
+            /* treeViewTrdVymz.Nodes[index].Nodes.Add(triedy.Last().Meno);
+             treeViewTrdVymz.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
 
 
-            treeViewZiakUpr.Nodes.Add(triedy.Last().Meno);
-            treeViewZiakUpr.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
+             treeViewZiakUpr.Nodes.Add(triedy.Last().Meno);
+             treeViewZiakUpr.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
 
-            treeViewZiakVymz.Nodes.Add(triedy.Last().Meno);
-            treeViewZiakVymz.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();*/
+             treeViewZiakVymz.Nodes.Add(triedy.Last().Meno);
+             treeViewZiakVymz.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();*/
 
 
 
@@ -306,12 +349,12 @@ namespace Pi1_Cs_projekt
             Skrinka skrinka = null;
             foreach (TreeNode i in treeViewSkrVymz.Nodes)
             {
-                if (i.Tag == treeViewSkrVymz.SelectedNode.Tag && treeViewSkrVymz.SelectedNode.Tag != ziaci[0] && treeViewSkrVymz.SelectedNode.Tag != triedy[0]) 
+                if (i.Tag == treeViewSkrVymz.SelectedNode.Tag && treeViewSkrVymz.SelectedNode.Tag != ziaci[0] && treeViewSkrVymz.SelectedNode.Tag != triedy[0])
                 {
                     skrinka = (Skrinka)i.Tag;
                 }
-            }  
-            foreach(TreeNode i in treeViewSkrUpr.Nodes)
+            }
+            foreach (TreeNode i in treeViewSkrUpr.Nodes)
             {
                 if (i.Tag == skrinka)
                 {
@@ -346,7 +389,7 @@ namespace Pi1_Cs_projekt
                     {
                         trieda = (Trieda)j.Tag;
                     }
-                }    
+                }
             }
             foreach (Trieda i in triedy)
             {
@@ -374,9 +417,9 @@ namespace Pi1_Cs_projekt
             }
             foreach (TreeNode i in treeViewTrdVymz.Nodes)
             {
-                foreach(TreeNode j in treeViewTrdVymz.Nodes[i.Index].Nodes)
+                foreach (TreeNode j in treeViewTrdVymz.Nodes[i.Index].Nodes)
                 {
-                    if (j.Tag == trieda) 
+                    if (j.Tag == trieda)
                     {
                         treeViewTrdVymz.Nodes[i.Index].Nodes.Remove(j);
                         break;
@@ -396,9 +439,9 @@ namespace Pi1_Cs_projekt
             }
             foreach (TreeNode i in treeViewVytvSkrVl.Nodes)
             {
-                if(i.Tag == trieda)
+                if (i.Tag == trieda)
                 {
-                    foreach(TreeNode j in treeViewVytvSkrVl.Nodes[i.Index].Nodes)
+                    foreach (TreeNode j in treeViewVytvSkrVl.Nodes[i.Index].Nodes)
                     {
 
                     }
@@ -430,9 +473,9 @@ namespace Pi1_Cs_projekt
                     break;
                 }
             }
-            foreach ( String i in comboBoxVytvZiakTr.Items)
+            foreach (String i in comboBoxVytvZiakTr.Items)
             {
-                if (trieda != null )
+                if (trieda != null)
                 {
                     if (i == trieda.Meno)
                     {
@@ -454,9 +497,9 @@ namespace Pi1_Cs_projekt
 
         private void buttonZiakVymz_Click(object sender, EventArgs e)
         {
-            Ziak ziak = null ;  
+            Ziak ziak = null;
 
-            foreach(TreeNode i in treeViewZiakVymz.Nodes)
+            foreach (TreeNode i in treeViewZiakVymz.Nodes)
             {
                 foreach (TreeNode j in treeViewZiakVymz.Nodes[i.Index].Nodes)
                 {
@@ -465,11 +508,11 @@ namespace Pi1_Cs_projekt
                         ziak = (Ziak)j.Tag;
                     }
                 }
-                
+
             }
             foreach (TreeNode i in treeViewZiakUpr.Nodes)
             {
-                foreach(TreeNode j in treeViewZiakUpr.Nodes[i.Index].Nodes)
+                foreach (TreeNode j in treeViewZiakUpr.Nodes[i.Index].Nodes)
                 {
                     if (j.Tag == ziak)
                     {
@@ -481,7 +524,7 @@ namespace Pi1_Cs_projekt
 
             foreach (Ziak i in ziaci)
             {
-                if(i == ziak)
+                if (i == ziak)
                 {
                     int indx = 0;
                     foreach (Skrinka j in skrinky)
@@ -494,7 +537,7 @@ namespace Pi1_Cs_projekt
                         }
                         indx++;
                     }
-                    ziaci.Remove(i);  
+                    ziaci.Remove(i);
                     if (ziaci.Count() == 0)
                     {
                         break;
@@ -512,13 +555,13 @@ namespace Pi1_Cs_projekt
                         break;
                     }
                 }
-                
+
             }
 
             treeViewZiakVymz.SelectedNode.Remove();
-            
+
         }
-    
+
 
 
         private void treeViewTrdUpr_DoubleClick(object sender, EventArgs e)
@@ -540,7 +583,7 @@ namespace Pi1_Cs_projekt
         {
             try
             {
-                if(treeViewSkrUpr.SelectedNode.Tag != triedy[0])
+                if (treeViewSkrUpr.SelectedNode.Tag != triedy[0])
                     treeViewSkrUpr.SelectedNode.BeginEdit();
             }
             catch
@@ -553,7 +596,7 @@ namespace Pi1_Cs_projekt
         {
             try
             {
-                if(treeViewZiakUpr.SelectedNode.Tag != ziaci[0] && treeViewZiakUpr.SelectedNode.Tag != triedy[0])
+                if (treeViewZiakUpr.SelectedNode.Tag != ziaci[0] && treeViewZiakUpr.SelectedNode.Tag != triedy[0])
                     treeViewZiakUpr.SelectedNode.BeginEdit();
             }
             catch
@@ -566,20 +609,20 @@ namespace Pi1_Cs_projekt
 
         private void buttonSkrUprPtvZm_Click(object sender, EventArgs e)
         {
-            foreach (TreeNode i in treeViewSkrUpr.Nodes) 
-            { 
-                foreach (Skrinka j in skrinky) 
+            foreach (TreeNode i in treeViewSkrUpr.Nodes)
+            {
+                foreach (Skrinka j in skrinky)
                 {
-                    if(j == i.Tag)
+                    if (j == i.Tag)
                     {
-                        foreach(TreeNode k in treeViewSkrUpr.Nodes[i.Index].Nodes)
+                        foreach (TreeNode k in treeViewSkrUpr.Nodes[i.Index].Nodes)
                         {
                             if (k.Index == 0)
                                 skrinky[skrinky.IndexOf(j)].Cislo = int.Parse(treeViewSkrUpr.Nodes[i.Index].Nodes[k.Index].Text);
                             else if (k.Index == 1)
                                 skrinky[skrinky.IndexOf(j)].Poznamka = treeViewSkrUpr.Nodes[i.Index].Nodes[k.Index].Text;
                             else if (k.Index == 2)
-                                foreach(Ziak z in ziaci)
+                                foreach (Ziak z in ziaci)
                                 {
                                     if (z.MenoPriezvisko == treeViewSkrUpr.Nodes[i.Index].Nodes[k.Index].Text)
                                     {
@@ -587,10 +630,10 @@ namespace Pi1_Cs_projekt
                                     }
                                 }
 
-                            
 
 
-               
+
+
                         }
                     }
                 }
@@ -603,18 +646,18 @@ namespace Pi1_Cs_projekt
 
         private void buttonTrdUprPtvZm_Click(object sender, EventArgs e)
         {
-            foreach(TreeNode i in treeViewTrdUpr.Nodes) 
+            foreach (TreeNode i in treeViewTrdUpr.Nodes)
             {
-                foreach(TreeNode j in treeViewTrdUpr.Nodes[i.Index].Nodes) 
+                foreach (TreeNode j in treeViewTrdUpr.Nodes[i.Index].Nodes)
                 {
-                    foreach(Trieda l in triedy)
+                    foreach (Trieda l in triedy)
                     {
                         if (j.Tag == l)
                         {
                             foreach (TreeNode k in treeViewTrdUpr.Nodes[i.Index].Nodes[j.Index].Nodes)
                             {
-                                
-                                if(k.Index == 0)
+
+                                if (k.Index == 0)
                                     triedy[triedy.IndexOf(l)].Meno = treeViewTrdUpr.Nodes[i.Index].Nodes[j.Index].Nodes[k.Index].Text;
                                 else if (k.Index == 1)
                                     triedy[triedy.IndexOf(l)].Odbor = treeViewTrdUpr.Nodes[i.Index].Nodes[j.Index].Nodes[k.Index].Text;
@@ -640,10 +683,10 @@ namespace Pi1_Cs_projekt
 
 
                                 }
-                                    
+
                                 else if (k.Index == 3)
                                     triedy[triedy.IndexOf(l)].TriednyUcitel = treeViewTrdUpr.Nodes[i.Index].Nodes[j.Index].Nodes[k.Index].Text;
-                               
+
 
                             }
                         }
@@ -666,15 +709,15 @@ namespace Pi1_Cs_projekt
 
         private void buttonZiakUprPtvZm_Click(object sender, EventArgs e)
         {
-            foreach(TreeNode i in treeViewZiakUpr.Nodes)
+            foreach (TreeNode i in treeViewZiakUpr.Nodes)
             {
-                foreach(TreeNode j in treeViewZiakUpr.Nodes[i.Index].Nodes) 
+                foreach (TreeNode j in treeViewZiakUpr.Nodes[i.Index].Nodes)
                 {
-                    foreach(Ziak z in ziaci) 
+                    foreach (Ziak z in ziaci)
                     {
-                        if(j.Tag == z) 
+                        if (j.Tag == z)
                         {
-                            foreach(TreeNode k in treeViewZiakUpr.Nodes[i.Index].Nodes[j.Index].Nodes) 
+                            foreach (TreeNode k in treeViewZiakUpr.Nodes[i.Index].Nodes[j.Index].Nodes)
                             {
                                 if (k.Index == 0)
                                     ziaci[ziaci.IndexOf(z)].MenoPriezvisko = treeViewZiakUpr.Nodes[i.Index].Nodes[j.Index].Nodes[k.Index].Text;
@@ -690,7 +733,7 @@ namespace Pi1_Cs_projekt
                                             ziaci[ziaci.IndexOf(z)].Trieda = l;
                                         }
                                     }
-                               
+
                                 else if (k.Index == 4)
                                     ziaci[ziaci.IndexOf(z)].DatumNarodenia = DateTime.Parse(treeViewZiakUpr.Nodes[i.Index].Nodes[j.Index].Nodes[k.Index].Text);
 
@@ -724,7 +767,7 @@ namespace Pi1_Cs_projekt
 
         private void buttonVytvTrHr_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i < int.Parse(textBoxVytvTrPocHr.Text);i++)
+            for (int i = 0; i < int.Parse(textBoxVytvTrPocHr.Text); i++)
             {
                 triedy.Add(new Trieda(textBoxVytvTrNzHr.Text, textBoxVytvTrOdHr.Text, textBoxVytvTrTuHr.Text, int.Parse(textBoxVytvTrRcHr.Text)));
             }
@@ -758,7 +801,7 @@ namespace Pi1_Cs_projekt
         {
             for (int i = int.Parse(textBoxVytvTrRcHrOd.Text); i <= int.Parse(textBoxVytvTrRcHrDo.Text); i++)
             {
-                triedy.Add(new Trieda(i.ToString() + "." + textBoxVytvTrOdbHrOdDo.Text, textBoxVytvTrOdbHrOdDo.Text, " " , i));
+                triedy.Add(new Trieda(i.ToString() + "." + textBoxVytvTrOdbHrOdDo.Text, textBoxVytvTrOdbHrOdDo.Text, " ", i));
                 bool x = true;
                 int index = 0;
                 foreach (int j in rocniky_pridane)
@@ -775,7 +818,7 @@ namespace Pi1_Cs_projekt
                     rocniky_pridane.Add(i);
                 }
             }
-            
+
 
             Res_treeviewtrdupr();
             Res_treeviewtrdvymz();
@@ -792,7 +835,7 @@ namespace Pi1_Cs_projekt
         {
             for (int i = 0; i < int.Parse(textBoxVytvZiakPocHr.Text); i++)
             {
-                ziaci.Add(new Ziak(textBoxVytvZiakMPHr.Text,int.Parse(textBoxVytvZiakPCHr.Text),comboBoxVytvZiakPohHr.SelectedItem.ToString(),dateTimePickerVytvZiakDNHr.Value, triedy[comboBoxVytvZiakTrHr.SelectedIndex]));
+                ziaci.Add(new Ziak(textBoxVytvZiakMPHr.Text, int.Parse(textBoxVytvZiakPCHr.Text), comboBoxVytvZiakPohHr.SelectedItem.ToString(), dateTimePickerVytvZiakDNHr.Value, triedy[comboBoxVytvZiakTrHr.SelectedIndex]));
             }
 
             Res_treeviewziakupr();
@@ -804,7 +847,7 @@ namespace Pi1_Cs_projekt
         {
             for (int i = int.Parse(textBoxVytvZiakPCOdHr.Text); i <= int.Parse(textBoxVytvZiakPCDoHr.Text); i++)
             {
-                ziaci.Add(new Ziak("", i,"", new DateTime(1), triedy[comboBoxVytvZiakTrOdDoHr.SelectedIndex])) ;
+                ziaci.Add(new Ziak("", i, "", new DateTime(1), triedy[comboBoxVytvZiakTrOdDoHr.SelectedIndex]));
             }
 
             Res_treeviewziakupr();
@@ -819,7 +862,7 @@ namespace Pi1_Cs_projekt
         {
             for (int i = int.Parse(textBoxVytvSkrCsOd.Text); i < int.Parse(textBoxVytvSkrCsDo.Text); i++)
             {
-                skrinky.Add(new Skrinka(i,richTextBoxVytvSkrPozHr.Text,ziaci[0]));
+                skrinky.Add(new Skrinka(i, richTextBoxVytvSkrPozHr.Text, ziaci[0]));
             }
             Res_treeviewskrupr();
             Res_treeviewskrvymz();
@@ -830,18 +873,64 @@ namespace Pi1_Cs_projekt
             int cislo = 1;
             foreach (Ziak i in ziaci)
             {
-                if(i.Trieda == triedy[comboBoxVytvZiakTrOdDoHr.SelectedIndex])
+                if (i.Trieda == triedy[comboBoxVytvZiakTrOdDoHr.SelectedIndex])
                 {
-                    skrinky.Add(new Skrinka(cislo,"",i));
+                    skrinky.Add(new Skrinka(cislo, "", i));
                     cislo++;
                 }
             }
             Res_treeviewskrupr();
             Res_treeviewskrvymz();
         }
-    }
-    
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+            var opt = new JsonSerializerOptions() { WriteIndented=true };
+            string JsonString = JsonSerializer.Serialize<List<Trieda>>(triedy, opt);
 
+            using (var writer = new StreamWriter(_pathTriedy))
+            {
+                writer.Write(JsonString);
+            }
+
+            var opt2 = new JsonSerializerOptions() { WriteIndented=true };
+            string JsonString2 = JsonSerializer.Serialize<List<Skrinka>>(skrinky, opt2);
+
+            using (var writer = new StreamWriter(_pathSkrinky))
+            {
+                writer.Write(JsonString2);
+            }
+
+            var opt3 = new JsonSerializerOptions() { WriteIndented=true };
+            string jsonString3 = JsonSerializer.Serialize<List<Ziak>>(ziaci, opt3);
+
+            using (var writer = new StreamWriter(_pathZiak))
+            {
+                writer.Write(jsonString3);
+            }
+
+            /*if (rocniky_pridane.Count != 0)
+            {
+                var opt4 = new JsonSerializerOptions() { WriteIndented=true };
+                int jsonString4 = JsonSerializer.Serialize(rocniky_pridane.ToString(), opt4);
+
+                using (var writer = new StreamWriter(_pathRocnik))
+                {
+                    writer.Write(jsonString4);
+                }
+            }*/
+
+            /*string[] the_array = rocniky_pridane.Select(i => i.ToString()).ToArray();
+            var opt5 = new JsonSerializerOptions() { WriteIndented=true };
+            string jsonString5 = JsonSerializer.Serialize(the_array, opt5);
+
+            using (var writer = new StreamWriter(_pathRocnik))
+            {
+                writer.Write(jsonString5);
+            }
+            */
+        }
+    }   
 }
+
