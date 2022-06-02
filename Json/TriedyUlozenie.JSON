@@ -1,0 +1,20 @@
+[
+  {
+    "Meno": "Nezaraden\u00FD",
+    "Odbor": "\u017Eiaden",
+    "TriednyUcitel": "nikto",
+    "Rocnik": 0
+  },
+  {
+    "Meno": "inteligentne tech",
+    "Odbor": "it",
+    "TriednyUcitel": "remis",
+    "Rocnik": 1
+  },
+  {
+    "Meno": "strojari",
+    "Odbor": "strojarina",
+    "TriednyUcitel": "vojtkova",
+    "Rocnik": 2
+  }
+]
