@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
 
 namespace Pi1_Cs_projekt
 {
@@ -17,6 +19,11 @@ namespace Pi1_Cs_projekt
         List<Skrinka> skrinky = new List<Skrinka>();
         List<int> rocniky_pridane = new List<int>();
 
+        public readonly string _pathTriedy = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\TriedyUlozenie.JSON";
+        public readonly string _pathZiak = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\ZiakUlozenie.JSON";
+        public readonly string _pathSkrinky = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\SkrinkaUlozenie.JSON";
+        public readonly string _pathRocnik = @"C:\Users\fsust\Source\Repos\Mihalik-Matej\Pi1-Cs-projekt\Json\RocnikUlozenie.JSON";
+      
         private void Res_treeviewtrdupr()
         {
             treeViewTrdUpr.Nodes.Clear();
@@ -115,21 +122,21 @@ namespace Pi1_Cs_projekt
 
         }
 
-        private void Res_treeviewvytvskrvl()
+        private void Res_treeviewvytvvymzskrvl( TreeView treeView)
         {
-            treeViewVytvSkrVl.Nodes.Clear();
+            treeView.Nodes.Clear();
             int indexNT = 0;
             foreach (Trieda i in triedy)
             {
-                treeViewVytvSkrVl.Nodes.Add(i.Meno);
-                treeViewVytvSkrVl.Nodes[indexNT].Tag = i;
+                treeView.Nodes.Add(i.Meno);
+                treeView.Nodes[indexNT].Tag = i;
                 int indexNZ = 0;
                 foreach (Ziak j in ziaci)
                 {
                     if (j.Trieda == i)
                     {
-                        treeViewVytvSkrVl.Nodes[indexNT].Nodes.Add(j.MenoPriezvisko);
-                        treeViewVytvSkrVl.Nodes[indexNT].Nodes[indexNZ].Tag = j;
+                        treeView.Nodes[indexNT].Nodes.Add(j.MenoPriezvisko);
+                        treeView.Nodes[indexNT].Nodes[indexNZ].Tag = j;
                         indexNZ++;
                     }
                 }
@@ -177,21 +184,18 @@ namespace Pi1_Cs_projekt
                 combobox.Items.Add(i.Meno);
             }
         }
-            
 
-    public Form1()
+        private void Reset()
         {
-            InitializeComponent();
-            triedy.Add(new Trieda("Nezaradený", "žiaden", "nikto", 0));
-            ziaci.Add(new Ziak("Nikto", 0, "žiadne", new DateTime(1),triedy[0]));
-            rocniky_pridane.Add(0);
-
             Res_treeviewtrdupr();
             Res_treeviewtrdvymz();
 
             Res_treeviewziakupr();
             Res_treeviewziakvymz();
-            Res_treeviewvytvskrvl();
+            Res_treeviewvytvvymzskrvl(treeViewVytvSkrVl);
+            Res_treeviewvytvvymzskrvl(treeViewVymzSkrVl);
+            Res_treeviewvytvvymzskrvl(treeViewUprSkrVl);
+            Res_treeviewvytvvymzskrvl(treeViewUprSkrVlnv);
 
             Res_treeviewskrupr();
             Res_treeviewskrvymz();
@@ -200,23 +204,55 @@ namespace Pi1_Cs_projekt
             Combobox_res(comboBoxVytvZiakTrHr);
             Combobox_res(comboBoxVytvZiakTrOdDoHr);
             Combobox_res(comboBoxVytvSkrTrd);
+            Combobox_res(comboBoxVymzZiakTr);
+            Combobox_res(comboBoxUprZiakTrd);
+            Combobox_res(comboBoxUprZiakTrdnv);
+        }
+            
+
+    public Form1()
+        {
+            InitializeComponent();
+
+            triedy.Add(new Trieda("Nezaradený", "žiaden", "nikto", 0));
+            ziaci.Add(new Ziak("Nikto", 0, "žiadne", new DateTime(1),triedy[0]));
+            rocniky_pridane.Add(0);
+
+            string jsonString2zob = File.ReadAllText(_pathTriedy);
+            triedy = JsonSerializer.Deserialize<List<Trieda>>(jsonString2zob);
+
+            string jsonString3zob = File.ReadAllText(_pathSkrinky);
+            skrinky = JsonSerializer.Deserialize<List<Skrinka>>(jsonString3zob);
+
+            string jsonString4zob = File.ReadAllText(_pathZiak);
+            ziaci = JsonSerializer.Deserialize<List<Ziak>>(jsonString4zob);
+
+            foreach(Trieda i in triedy)
+            {
+                if(!rocniky_pridane.Contains(i.Rocnik))
+                {
+                    rocniky_pridane.Add(i.Rocnik);
+                }
+            }
+
+            Reset();
+
         }
 
         private void buttonVytvSkr_Click(object sender, EventArgs e)
         {
             try
             {
-                skrinky.Add(new Skrinka(int.Parse(textBoxVytvSkrCs.Text), richTextBoxVytvSkrPoz.Text, ziaci[treeViewVytvSkrVl.SelectedNode.Index]));
-                /*treeViewSkrVymz.Nodes.Add(skrinky.Last().Cislo.ToString());
-                treeViewSkrVymz.Nodes[treeViewSkrVymz.Nodes.Count - 1].Tag = skrinky.Last();
-                treeViewSkrUpr.Nodes.Add(skrinky.Last().Cislo.ToString());
-                treeViewSkrUpr.Nodes[treeViewSkrUpr.Nodes.Count - 1].Tag = skrinky.Last();
-                treeViewSkrUpr.Nodes[skrinky.IndexOf(skrinky.Last())].Nodes.Add(skrinky.Last().Cislo.ToString());
-                treeViewSkrUpr.Nodes[skrinky.IndexOf(skrinky.Last())].Nodes.Add(skrinky.Last().Poznamka);
-                treeViewSkrUpr.Nodes[skrinky.IndexOf(skrinky.Last())].Nodes.Add(skrinky.Last().Vlastnik.MenoPriezvisko);
-                treeViewSkrUpr.Nodes[treeViewSkrUpr.Nodes.Count - 1].Nodes[2].Tag = skrinky.Last().Vlastnik;*/
-                Res_treeviewskrupr();
-                Res_treeviewskrvymz();
+                Ziak vlastnik = ziaci[0] ;
+                foreach(Ziak i in ziaci)
+                {
+                    if(i == treeViewVytvSkrVl.SelectedNode.Tag)
+                    {
+                        vlastnik = i;
+                    }
+                }
+                skrinky.Add(new Skrinka(int.Parse(textBoxVytvSkrCs.Text), richTextBoxVytvSkrPoz.Text, vlastnik));
+                Reset();
             }
             catch
             {
@@ -229,13 +265,7 @@ namespace Pi1_Cs_projekt
 
 
             triedy.Add(new Trieda(textBoxVytvTrNz.Text, textBoxVytvTrOd.Text, textBoxVytvTrTu.Text, int.Parse(textBoxVytvTrRc.Text)));
-            comboBoxVytvZiakTr.Items.Add(triedy.Last().Meno);
-            comboBoxVytvZiakTrHr.Items.Add(triedy.Last().Meno);
-            comboBoxVytvZiakTrOdDoHr.Items.Add(triedy.Last().Meno);
-            comboBoxVytvSkrTrd.Items.Add(triedy.Last().Meno);
 
-            /* treeViewVytvSkrVl.Nodes.Add(triedy.Last().Meno);
-             treeViewVytvSkrVl.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();*/
 
             bool x = true;
             int index = 0;
@@ -250,30 +280,10 @@ namespace Pi1_Cs_projekt
             }
             if(x)
             {
-               /* treeViewTrdUpr.Nodes.Add(textBoxVytvTrRc.Text);
-                treeViewTrdVymz.Nodes.Add(textBoxVytvTrRc.Text);*/
                 rocniky_pridane.Add(int.Parse(textBoxVytvTrRc.Text));
             }
-            /*treeViewTrdUpr.Nodes[index].Nodes.Add(triedy.Last().Meno);
-            treeViewTrdUpr.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
-            treeViewTrdUpr.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Nodes.Add(triedy.Last().Meno);
-            treeViewTrdUpr.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Nodes.Add(triedy.Last().Odbor);
-            treeViewTrdUpr.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Nodes.Add(triedy.Last().Rocnik.ToString());
-            treeViewTrdUpr.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Nodes.Add(triedy.Last().TriednyUcitel);*/
 
-            Res_treeviewtrdupr();
-            Res_treeviewtrdvymz();
-
-           /* treeViewTrdVymz.Nodes[index].Nodes.Add(triedy.Last().Meno);
-            treeViewTrdVymz.Nodes[index].Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
-
-
-            treeViewZiakUpr.Nodes.Add(triedy.Last().Meno);
-            treeViewZiakUpr.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();
-
-            treeViewZiakVymz.Nodes.Add(triedy.Last().Meno);
-            treeViewZiakVymz.Nodes[triedy.IndexOf(triedy.Last())].Tag = triedy.Last();*/
-
+            Reset();
 
 
 
@@ -283,22 +293,7 @@ namespace Pi1_Cs_projekt
         {
 
             ziaci.Add(new Ziak(textBoxVytvZiakMP.Text, int.Parse(textBoxVytvZiakPC.Text), comboBoxVytvZiakPoh.SelectedItem.ToString(), dateTimePickerVytvZiakDN.Value, triedy[comboBoxVytvZiakTr.SelectedIndex]));
-            /*treeViewVytvSkrVl.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes.Add(ziaci.Last().MenoPriezvisko);
-            treeViewVytvSkrVl.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Tag = ziaci.Last();
-            treeViewZiakVymz.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes.Add(ziaci.Last().MenoPriezvisko);
-            treeViewZiakVymz.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Tag = ziaci.Last();
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes.Add(ziaci.Last().MenoPriezvisko);
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Tag = ziaci.Last();
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes.Add(ziaci.Last().MenoPriezvisko);
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes.Add(ziaci.Last().PoradoveCislo.ToString());
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes.Add(ziaci.Last().Pohlavie);
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes.Add(ziaci.Last().Trieda.Meno);
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes.Add(ziaci.Last().DatumNarodenia.ToString());
-            treeViewZiakUpr.Nodes[comboBoxVytvZiakTr.SelectedIndex].Nodes[ziaci.IndexOf(ziaci.Last())].Nodes[3].Tag = ziaci.Last().Trieda;*/
-
-            Res_treeviewziakupr();
-            Res_treeviewziakvymz();
-            Res_treeviewvytvskrvl();
+            Reset();
         }
 
         private void buttonSkrVymz_Click(object sender, EventArgs e)
@@ -311,14 +306,6 @@ namespace Pi1_Cs_projekt
                     skrinka = (Skrinka)i.Tag;
                 }
             }  
-            foreach(TreeNode i in treeViewSkrUpr.Nodes)
-            {
-                if (i.Tag == skrinka)
-                {
-                    treeViewSkrUpr.Nodes[i.Index].Remove();
-                    break;
-                }
-            }
             foreach (Skrinka i in skrinky)
             {
                 if (i == skrinka)
@@ -331,8 +318,7 @@ namespace Pi1_Cs_projekt
                     break;
                 }
             }
-
-            treeViewSkrVymz.SelectedNode.Remove();
+            Reset();
         }
 
         private void buttonTrdVymz_Click(object sender, EventArgs e)
@@ -358,18 +344,12 @@ namespace Pi1_Cs_projekt
                         if (j.Trieda == i)
                         {
                             ziaci[indx].Trieda = triedy[0];
-                            Res_treeviewziakupr();
-                            Res_treeviewziakvymz();
-                            Res_treeviewvytvskrvl();
+                            Reset();
                         }
                         indx++;
                     }
                     triedy.Remove(i);
                     break;
-                    if (triedy.Count() == 0)
-                    {
-                        break;
-                    }
                 }
             }
             foreach (TreeNode i in treeViewTrdVymz.Nodes)
@@ -383,72 +363,7 @@ namespace Pi1_Cs_projekt
                     }
                 }
             }
-            foreach (TreeNode i in treeViewTrdUpr.Nodes)
-            {
-                foreach (TreeNode j in treeViewTrdUpr.Nodes[i.Index].Nodes)
-                {
-                    if (j.Tag == trieda)
-                    {
-                        treeViewTrdUpr.Nodes[i.Index].Nodes.Remove(j);
-                        break;
-                    }
-                }
-            }
-            foreach (TreeNode i in treeViewVytvSkrVl.Nodes)
-            {
-                if(i.Tag == trieda)
-                {
-                    foreach(TreeNode j in treeViewVytvSkrVl.Nodes[i.Index].Nodes)
-                    {
-
-                    }
-                    treeViewVytvSkrVl.Nodes.Remove(i);
-                    break;
-                }
-            }
-            foreach (TreeNode i in treeViewZiakUpr.Nodes)
-            {
-                if (i.Tag == trieda)
-                {
-                    foreach (TreeNode j in treeViewZiakUpr.Nodes[i.Index].Nodes)
-                    {
-
-                    }
-                    treeViewZiakUpr.Nodes.Remove(i);
-                    break;
-                }
-            }
-            foreach (TreeNode i in treeViewZiakVymz.Nodes)
-            {
-                if (i.Tag == trieda)
-                {
-                    foreach (TreeNode j in treeViewZiakVymz.Nodes[i.Index].Nodes)
-                    {
-
-                    }
-                    treeViewZiakVymz.Nodes.Remove(i);
-                    break;
-                }
-            }
-            foreach ( String i in comboBoxVytvZiakTr.Items)
-            {
-                if (trieda != null )
-                {
-                    if (i == trieda.Meno)
-                    {
-                        comboBoxVytvZiakTr.Items.RemoveAt(comboBoxVytvZiakTr.Items.IndexOf(i));
-                        break;
-                    }
-                    if (comboBoxVytvZiakTr.Items.Count == 0)
-                    {
-                        break;
-                    }
-                }
-            }
-            Combobox_res(comboBoxVytvZiakTr);
-            Combobox_res(comboBoxVytvZiakTrHr);
-            Combobox_res(comboBoxVytvZiakTrOdDoHr);
-            Combobox_res(comboBoxVytvSkrTrd);
+            Reset();
 
         }
 
@@ -489,8 +404,7 @@ namespace Pi1_Cs_projekt
                         if (j.Vlastnik == i)
                         {
                             skrinky[indx].Vlastnik = ziaci[0];
-                            Res_treeviewskrupr();
-                            Res_treeviewskrvymz();
+                            Reset();
                         }
                         indx++;
                     }
@@ -502,21 +416,9 @@ namespace Pi1_Cs_projekt
                     break;
                 }
             }
-            foreach (TreeNode i in treeViewVytvSkrVl.Nodes)
-            {
-                foreach (TreeNode j in treeViewVytvSkrVl.Nodes[i.Index].Nodes)
-                {
-                    if (j.Tag == ziak)
-                    {
-                        treeViewVytvSkrVl.Nodes[i.Index].Nodes.Remove(j);
-                        break;
-                    }
-                }
-                
-            }
 
-            treeViewZiakVymz.SelectedNode.Remove();
-            
+            Reset();
+
         }
     
 
@@ -531,7 +433,7 @@ namespace Pi1_Cs_projekt
 
             catch
             {
-                MessageBox.Show("!");
+                MessageBox.Show("Uprava nie je mozna");
             }
 
         }
@@ -545,7 +447,7 @@ namespace Pi1_Cs_projekt
             }
             catch
             {
-                MessageBox.Show("!");
+                MessageBox.Show("Uprava nie je mozna");
             }
         }
 
@@ -558,7 +460,7 @@ namespace Pi1_Cs_projekt
             }
             catch
             {
-                MessageBox.Show("!");
+                MessageBox.Show("Uprava nie je mozna");
             }
         }
 
@@ -595,8 +497,7 @@ namespace Pi1_Cs_projekt
                     }
                 }
             }
-            Res_treeviewskrupr();
-            Res_treeviewskrvymz();
+            Reset();
 
 
         }
@@ -650,12 +551,7 @@ namespace Pi1_Cs_projekt
                     }
                 }
             }
-            Res_treeviewtrdupr();
-            Res_treeviewtrdvymz();
-            Combobox_res(comboBoxVytvZiakTr);
-            Combobox_res(comboBoxVytvZiakTrHr);
-            Combobox_res(comboBoxVytvZiakTrOdDoHr);
-            Combobox_res(comboBoxVytvSkrTrd);
+            Reset();
             /*
             comboBoxVytvZiakTr.Items.Clear();
             foreach(Trieda i in triedy)
@@ -699,9 +595,7 @@ namespace Pi1_Cs_projekt
                     }
                 }
             }
-            Res_treeviewziakupr();
-            Res_treeviewziakvymz();
-            Res_treeviewvytvskrvl();
+            Reset();
         }
 
         private void buttonSkrUprRsZm_Click(object sender, EventArgs e)
@@ -745,13 +639,7 @@ namespace Pi1_Cs_projekt
                 rocniky_pridane.Add(int.Parse(textBoxVytvTrRcHr.Text));
             }
 
-            Res_treeviewtrdupr();
-            Res_treeviewtrdvymz();
-
-            Combobox_res(comboBoxVytvZiakTr);
-            Combobox_res(comboBoxVytvZiakTrHr);
-            Combobox_res(comboBoxVytvZiakTrOdDoHr);
-            Combobox_res(comboBoxVytvSkrTrd);
+            Reset();
         }
 
         private void buttonVytvTrHrOdDo_Click(object sender, EventArgs e)
@@ -775,15 +663,9 @@ namespace Pi1_Cs_projekt
                     rocniky_pridane.Add(i);
                 }
             }
-            
 
-            Res_treeviewtrdupr();
-            Res_treeviewtrdvymz();
 
-            Combobox_res(comboBoxVytvZiakTr);
-            Combobox_res(comboBoxVytvZiakTrHr);
-            Combobox_res(comboBoxVytvZiakTrOdDoHr);
-            Combobox_res(comboBoxVytvSkrTrd);
+            Reset();
         }
 
 
@@ -795,9 +677,7 @@ namespace Pi1_Cs_projekt
                 ziaci.Add(new Ziak(textBoxVytvZiakMPHr.Text,int.Parse(textBoxVytvZiakPCHr.Text),comboBoxVytvZiakPohHr.SelectedItem.ToString(),dateTimePickerVytvZiakDNHr.Value, triedy[comboBoxVytvZiakTrHr.SelectedIndex]));
             }
 
-            Res_treeviewziakupr();
-            Res_treeviewziakvymz();
-            Res_treeviewvytvskrvl();
+            Reset();
         }
 
         private void buttonVytvZiakHrTr_Click(object sender, EventArgs e)
@@ -807,9 +687,7 @@ namespace Pi1_Cs_projekt
                 ziaci.Add(new Ziak("", i,"", new DateTime(1), triedy[comboBoxVytvZiakTrOdDoHr.SelectedIndex])) ;
             }
 
-            Res_treeviewziakupr();
-            Res_treeviewziakvymz();
-            Res_treeviewvytvskrvl();
+            Reset();
         }
 
 
@@ -821,8 +699,7 @@ namespace Pi1_Cs_projekt
             {
                 skrinky.Add(new Skrinka(i,richTextBoxVytvSkrPozHr.Text,ziaci[0]));
             }
-            Res_treeviewskrupr();
-            Res_treeviewskrvymz();
+            Reset();
         }
 
         private void buttonVytvSkrHrTr_Click(object sender, EventArgs e)
@@ -836,12 +713,1078 @@ namespace Pi1_Cs_projekt
                     cislo++;
                 }
             }
-            Res_treeviewskrupr();
-            Res_treeviewskrvymz();
+            Reset();
+        }
+
+
+        private void buttonTrdVymzHr_Click(object sender, EventArgs e)
+        {
+
+            List<Trieda> triedy_vymazanie = new List<Trieda>();
+            
+            foreach (Trieda i in triedy)
+            {
+                if (checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.Odbor == textBoxVymzTrOd.Text && i.Rocnik == int.Parse(textBoxVymzTrRc.Text) && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.Odbor == textBoxVymzTrOd.Text && i.Rocnik == int.Parse(textBoxVymzTrRc.Text))
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.Odbor == textBoxVymzTrOd.Text && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text &&  i.Rocnik == int.Parse(textBoxVymzTrRc.Text) && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Rocnik == int.Parse(textBoxVymzTrRc.Text) && i.TriednyUcitel == textBoxVymzTrTu.Text && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.Odbor == textBoxVymzTrOd.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.Rocnik == int.Parse(textBoxVymzTrRc.Text) )
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxVymzTrOd.Text && i.Rocnik == int.Parse(textBoxVymzTrRc.Text))
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxVymzTrOd.Text && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Rocnik == int.Parse(textBoxVymzTrRc.Text) && i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Meno == textBoxVymzTrNz.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxVymzTrOd.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && checkBoxVymzTrRc.Checked && !checkBoxVymzTrTu.Checked)
+                {
+                    if (i.Rocnik == int.Parse(textBoxVymzTrRc.Text))
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+                else if(!checkBoxVymzTrNz.Checked && !checkBoxVymzTrOd.Checked && !checkBoxVymzTrRc.Checked && checkBoxVymzTrTu.Checked)
+                {
+                    if (i.TriednyUcitel == textBoxVymzTrTu.Text)
+                    {
+                        triedy_vymazanie.Add(i);
+                    }
+                }
+            }
+            
+            foreach (Trieda i in triedy_vymazanie)
+            {
+                triedy.Remove(i);
+                int indx = 0;
+                foreach (Ziak j in ziaci)
+                {
+                    if(j.Trieda == i)
+                    {
+                        ziaci[indx].Trieda = triedy[0];
+                    }
+                    indx++;
+                }
+            }
+
+            Reset();
+
+        }
+
+
+        private void buttonZiakVymzHr_Click(object sender, EventArgs e)
+        {
+            List<Ziak> ziaci_vymazanie = new List<Ziak>();
+
+            foreach (Ziak i in ziaci)
+            {
+                if (checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value)
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text  && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) &&  i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text))
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value)
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.DatumNarodenia == dateTimePickerVymzZiakDN.Value)
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerVymzZiakDN.Value && i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerVymzZiakDN.Value  && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxVymzZiakMP.Text)
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxVymzZiakPC.Text) )
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerVymzZiakDN.Value )
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && checkBoxVymzZiakPoh.Checked && !checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.Pohlavie == comboBoxVymzZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+                else if(!checkBoxVymzZiakMP.Checked && !checkBoxVymzZiakPC.Checked && !checkBoxVymzZiakDN.Checked && !checkBoxVymzZiakPoh.Checked && checkBoxVymzZiakTr.Checked)
+                {
+                    if (i.Trieda == triedy[comboBoxVymzZiakTr.SelectedIndex])
+                    {
+                        ziaci_vymazanie.Add(i);
+                    }
+
+                }
+
+            }
+
+            foreach (Ziak i in ziaci_vymazanie)
+            {
+                ziaci.Remove(i);
+                int indx = 0;
+                foreach (Skrinka j in skrinky)
+                {
+                    
+                    if (j.Vlastnik == i)
+                    {
+                        skrinky[indx].Vlastnik = ziaci[0];
+                    }
+                    indx++;
+                }
+            }
+
+            Reset();
+        }
+
+
+ 
+        private void buttonSkrVymzHr_Click(object sender, EventArgs e)
+        {
+            List <Skrinka> skrinky_vymazanie = new List<Skrinka>();
+
+            foreach (Skrinka i in skrinky)
+            {
+                if (checkBoxVymzSkrCs.Checked && checkBoxVymzSkrPoz.Checked && checkBoxVymzSkrVl.Checked)
+                {
+
+                    if(i.Cislo == int.Parse(textBoxVymzSkrCs.Text) && i.Poznamka == richTextBoxVymzSkrPoz.Text && i.Vlastnik == treeViewVymzSkrVl.SelectedNode.Tag)
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+                else if (checkBoxVymzSkrCs.Checked && checkBoxVymzSkrPoz.Checked && !checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxVymzSkrCs.Text) && i.Poznamka == richTextBoxVymzSkrPoz.Text)
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+                else if (checkBoxVymzSkrCs.Checked && !checkBoxVymzSkrPoz.Checked && checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxVymzSkrCs.Text) && i.Vlastnik == treeViewVymzSkrVl.SelectedNode.Tag)
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+                else if (!checkBoxVymzSkrCs.Checked && checkBoxVymzSkrPoz.Checked && checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Poznamka == richTextBoxVymzSkrPoz.Text && i.Vlastnik == treeViewVymzSkrVl.SelectedNode.Tag)
+                        continue;
+                    skrinky_vymazanie.Add(i);
+
+                }
+                else if (checkBoxVymzSkrCs.Checked && !checkBoxVymzSkrPoz.Checked && !checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxVymzSkrCs.Text))
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+                else if (!checkBoxVymzSkrCs.Checked && checkBoxVymzSkrPoz.Checked && !checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Poznamka == richTextBoxVymzSkrPoz.Text)
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+                else if (!checkBoxVymzSkrCs.Checked && !checkBoxVymzSkrPoz.Checked && checkBoxVymzSkrVl.Checked)
+                {
+                    if (i.Vlastnik == treeViewVymzSkrVl.SelectedNode.Tag)
+                    {
+                        skrinky_vymazanie.Add(i);
+                    }
+                }
+            }
+            foreach(Skrinka i in skrinky_vymazanie)
+            {
+                skrinky.Remove(i);
+            }
+
+            Reset();
+        }
+
+        private void rocnikyuprhr()
+        {
+            bool x = true;
+            int index = 0;
+            foreach (int r in rocniky_pridane)
+            {
+                if (r == int.Parse(textBoxUprTrRcnv.Text))
+                {
+                    x = false;
+                    break;
+                }
+                index++;
+            }
+            if (x)
+            {
+                rocniky_pridane.Add(int.Parse(textBoxUprTrRcnv.Text));
+            }
+        }
+
+        private void buttonUprTrdHr_Click(object sender, EventArgs e)
+        {
+            foreach (Trieda i in triedy)
+            {
+                if (checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Odbor == textBoxUprTrOd.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text) && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Odbor == textBoxUprTrOd.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text))
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Odbor == textBoxUprTrOd.Text && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text) && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text) && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Odbor == textBoxUprTrOd.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text))
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxUprTrOd.Text && i.Rocnik == int.Parse(textBoxUprTrRc.Text))
+                    {
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxUprTrOd.Text && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.Rocnik == int.Parse(textBoxUprTrRc.Text) && i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+                else if(checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Meno == textBoxUprTrNz.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Meno = textBoxUprTrNznv.Text;
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Odbor == textBoxUprTrOd.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].Odbor = textBoxUprTrOdnv.Text;
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && checkBoxUprTrRc.Checked && !checkBoxUprTrTu.Checked)
+                {
+                    if (i.Rocnik == int.Parse(textBoxUprTrRc.Text))
+                    {
+                        triedy[triedy.IndexOf(i)].Rocnik = int.Parse(textBoxUprTrRcnv.Text);
+                        rocnikyuprhr();
+                    }
+                }
+                else if(!checkBoxUprTrNz.Checked && !checkBoxUprTrOd.Checked && !checkBoxUprTrRc.Checked && checkBoxUprTrTu.Checked)
+                {
+                    if (i.TriednyUcitel == textBoxUrpTrTu.Text)
+                    {
+                        triedy[triedy.IndexOf(i)].TriednyUcitel = textBoxUprTrTunv.Text;
+                    }
+                }
+            }
+
+            Reset();
+        }
+
+        private void buttonZiakUprPtvZmHr_Click(object sender, EventArgs e)
+        {
+            foreach (Ziak i in ziaci)
+            {
+                if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value)
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text))
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.DatumNarodenia == dateTimePickerUprZiakDN.Value)
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.DatumNarodenia == dateTimePickerUprZiakDN.Value)
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text) && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerUprZiakDN.Value && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString() && i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }
+                else if(checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.MenoPriezvisko == textBoxUprZiakMP.Text)
+                    {
+                        ziaci[ziaci.IndexOf(i)].MenoPriezvisko = textBoxUprZiakMPnv.Text;
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.PoradoveCislo == int.Parse(textBoxUprZiakPc.Text))
+                    {
+                        ziaci[ziaci.IndexOf(i)].PoradoveCislo = int.Parse(textBoxUprZiakPcnv.Text);
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.DatumNarodenia == dateTimePickerUprZiakDN.Value)
+                    {
+                        ziaci[ziaci.IndexOf(i)].DatumNarodenia = dateTimePickerUprZiakDNnv.Value;
+                    }
+
+                }
+                else if(!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && checkBoxUprZiakPoh.Checked && !checkBoxUprZiakTr.Checked)
+                {
+                    if (i.Pohlavie == comboBoxUprZiakPoh.SelectedItem.ToString())
+                    {
+                        ziaci[ziaci.IndexOf(i)].Pohlavie = comboBoxUprZiakPohnv.SelectedItem.ToString();
+                    }
+
+                }
+                else if (!checkBoxUprZiakMP.Checked && !checkBoxUprZiakPC.Checked && !checkBoxUprZiakDN.Checked && !checkBoxUprZiakPoh.Checked && checkBoxUprZiakTr.Checked)
+                {
+                    if (i.Trieda == triedy[comboBoxUprZiakTrd.SelectedIndex])
+                    {
+                        ziaci[ziaci.IndexOf(i)].Trieda = triedy[comboBoxUprZiakTrdnv.SelectedIndex];
+                    }
+
+                }             
+            }
+            Reset();
+        }
+
+        private void buttonSkrUprHr_Click(object sender, EventArgs e)
+        {
+            foreach(Skrinka i in skrinky)
+            {
+                if (checkBoxUprSkrCs.Checked && checkBoxUprSkrPoz.Checked && checkBoxUprSkrVl.Checked)
+                {
+
+                    if (i.Cislo == int.Parse(textBoxUprSkrCs.Text) && i.Poznamka == richTextBoxUprSkrPoz.Text && i.Vlastnik == treeViewUprSkrVl.SelectedNode.Tag)
+                    {
+                        skrinky[skrinky.IndexOf(i)].Cislo = int.Parse(textBoxUprSkrCsnv.Text);
+                        skrinky[skrinky.IndexOf(i)].Poznamka = richTextBoxUprSkrPoznv.Text;
+
+                        Ziak vlastnik = ziaci[0];
+                        foreach (Ziak j in ziaci)
+                        {
+                            if (j == treeViewVytvSkrVl.SelectedNode.Tag)
+                            {
+                                vlastnik = j;
+                            }
+                        }
+                        skrinky[skrinky.IndexOf(i)].Vlastnik = vlastnik;
+                    }
+                }
+                else if (checkBoxUprSkrCs.Checked && checkBoxUprSkrPoz.Checked && !checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxUprSkrCs.Text) && i.Poznamka == richTextBoxUprSkrPoz.Text)
+                    {
+                        skrinky[skrinky.IndexOf(i)].Cislo = int.Parse(textBoxUprSkrCsnv.Text);
+                        skrinky[skrinky.IndexOf(i)].Poznamka = richTextBoxUprSkrPoznv.Text;
+                    }
+                }
+                else if (checkBoxUprSkrCs.Checked && !checkBoxUprSkrPoz.Checked && checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxUprSkrCs.Text) && i.Vlastnik == treeViewUprSkrVl.SelectedNode.Tag)
+                    {
+                        skrinky[skrinky.IndexOf(i)].Cislo = int.Parse(textBoxUprSkrCsnv.Text);
+
+                        Ziak vlastnik = ziaci[0];
+                        foreach (Ziak j in ziaci)
+                        {
+                            if (j == treeViewVytvSkrVl.SelectedNode.Tag)
+                            {
+                                vlastnik = j;
+                            }
+                        }
+                        skrinky[skrinky.IndexOf(i)].Vlastnik = vlastnik;
+                    }
+                }
+                else if (!checkBoxUprSkrCs.Checked && checkBoxUprSkrPoz.Checked && checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Poznamka == richTextBoxUprSkrPoz.Text && i.Vlastnik == treeViewUprSkrVl.SelectedNode.Tag)
+                    {;
+                        skrinky[skrinky.IndexOf(i)].Poznamka = richTextBoxUprSkrPoznv.Text;
+
+                        Ziak vlastnik = ziaci[0];
+                        foreach (Ziak j in ziaci)
+                        {
+                            if (j == treeViewVytvSkrVl.SelectedNode.Tag)
+                            {
+                                vlastnik = j;
+                            }
+                        }
+                        skrinky[skrinky.IndexOf(i)].Vlastnik = vlastnik;
+                    }
+
+                }
+                else if (checkBoxUprSkrCs.Checked && !checkBoxUprSkrPoz.Checked && !checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Cislo == int.Parse(textBoxUprSkrCs.Text))
+                    {
+                        skrinky[skrinky.IndexOf(i)].Cislo = int.Parse(textBoxUprSkrCsnv.Text);
+                    }
+                }
+                else if (!checkBoxUprSkrCs.Checked && checkBoxUprSkrPoz.Checked && !checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Poznamka == richTextBoxUprSkrPoz.Text)
+                    { 
+                        skrinky[skrinky.IndexOf(i)].Poznamka = richTextBoxUprSkrPoznv.Text;
+
+                    }
+                }
+                else if (!checkBoxUprSkrCs.Checked && !checkBoxUprSkrPoz.Checked && checkBoxUprSkrVl.Checked)
+                {
+                    if (i.Vlastnik == treeViewUprSkrVl.SelectedNode.Tag)
+                    {
+                        Ziak vlastnik = ziaci[0];
+                        foreach (Ziak j in ziaci)
+                        {
+                            if (j == treeViewVytvSkrVl.SelectedNode.Tag)
+                            {
+                                vlastnik = j;
+                            }
+                        }
+                        skrinky[skrinky.IndexOf(i)].Vlastnik = vlastnik;
+                    }
+                }
+            }
+            Reset();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            var opt = new JsonSerializerOptions() { WriteIndented=true };
+            string JsonString = JsonSerializer.Serialize<List<Trieda>>(triedy, opt);
+
+            using (var writer = new StreamWriter(_pathTriedy))
+            {
+                writer.Write(JsonString);
+            }
+
+            var opt2 = new JsonSerializerOptions() { WriteIndented=true };
+            string JsonString2 = JsonSerializer.Serialize<List<Skrinka>>(skrinky, opt2);
+
+            using (var writer = new StreamWriter(_pathSkrinky))
+            {
+                writer.Write(JsonString2);
+            }
+
+            var opt3 = new JsonSerializerOptions() { WriteIndented=true };
+            string jsonString3 = JsonSerializer.Serialize<List<Ziak>>(ziaci, opt3);
+
+            using (var writer = new StreamWriter(_pathZiak))
+            {
+                writer.Write(jsonString3);
+            }
+
         }
     }
-    
-
-
-
 }
+
